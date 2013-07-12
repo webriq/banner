@@ -1,7 +1,7 @@
 {
     "name": "webriq/gridguyz-banner",
-    "type": "project",
-    "description": "Banner management module for Gridguyz",
+    "type": "gridguyz-module",
+    "description": "Banner module for Gridguyz",
     "license": "CC-BY-SA-3.0",
     "keywords": [
         "gridguyz",
@@ -25,5 +25,13 @@
         "php": ">=5.4",
         "webriq/gridguyz-installer": "*",
         "webriq/gridguyz-core": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Grid\\Banner": "src/"
+        },
+        "classmap": [
+            "Module.php"
+        ]
     }
 }

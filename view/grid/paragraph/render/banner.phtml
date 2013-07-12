@@ -1,0 +1,10 @@
+<?php $banner = $this->paragraph->findBanner(); if ( $banner ): ?>
+    <div class="banner">
+        <?= $this->partial( $banner->viewPartial, array(
+            'banner'    => $banner,
+            'paragraph' => $this->paragraph,
+        ) ) ?>
+    </div>
+<?php else: ?>
+    <div class="no-banner-found">&nbsp;</div>
+<?php endif; ?>
