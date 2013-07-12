@@ -34,22 +34,4 @@ class Structure extends MapperAwareAbstract
         return $this;
     }
 
-    /**
-     * Find a banner in this set
-     *
-     * @param   array   $tagIds
-     * @param   string  $locale
-     * @return  \Grid\Banner\Model\Banner\Structure
-     */
-    public function findBanner( array $tagIds, $locale )
-    {
-        if ( empty( $this->id ) )
-        {
-            return array();
-        }
-
-        return $this->getMapper()
-                    ->findBanner( $this->id, $tagIds, $locale );
-    }
-
 }

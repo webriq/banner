@@ -67,16 +67,4 @@ class Mapper extends ReadWriteMapperAbstract
         parent::__construct( $bannerSetStructurePrototype ?: new Structure );
     }
 
-    /**
-     * @param   int     $setId
-     * @param   array   $tagIds
-     * @param   string  $locale
-     * @return  \Grid\Banner\Model\Banner\Structure
-     */
-    public function findBanner( $setId, array $tagIds, $locale )
-    {
-        return $this->getBannerMapper()
-                    ->findBySetId( $setId, $tagIds, $locale );
-    }
-
 }

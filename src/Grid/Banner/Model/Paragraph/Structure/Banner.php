@@ -163,7 +163,11 @@ class Banner extends AbstractLeaf
             $tagIds = $rendered->getTagIds();
         }
 
-        return $bannerMapper->findBanner( $this->setId, $tagIds, $locale );
+        return $bannerMapper->findRandomBySetIdTagIdsLocale(
+            $this->setId,
+            $tagIds,
+            $locale
+        );
     }
 
 }

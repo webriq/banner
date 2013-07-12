@@ -98,13 +98,13 @@ class Mapper extends ReadWriteMapperAbstract
      * @param   string  $locale
      * @return  \Grid\Banner\Model\Banner\Structure
      */
-    public function findBySetId( $setId, array $tagIds, $locale )
+    public function findRandomBySetIdTagIdsLocale( $setId, array $tagIds, $locale )
     {
         /// TODO: implement
 
         $blockedIds = $this->getBlockedIds();
 
-        
+
 
         // $banner;
         $this->addToBlockedIds( $banner->id );
