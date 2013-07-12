@@ -1,7 +1,7 @@
 {
     "name": "webriq/gridguyz-banner",
     "type": "project",
-    "description": "Gridguyz - social content management system - skeleton application",
+    "description": "Banner management module for Gridguyz",
     "license": "CC-BY-SA-3.0",
     "keywords": [
         "gridguyz",
