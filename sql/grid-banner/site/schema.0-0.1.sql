@@ -129,8 +129,8 @@ CREATE TABLE "banner_x_set_by_tag"
 CREATE OR REPLACE FUNCTION "banner_random"( "set"       INTEGER,
                                             "language"  CHARACTER VARYING,
                                             "locale"    CHARACTER VARYING,
-                                            "tags"      INTEGER ARRAY,
-                                            "blocked"   INTEGER ARRAY DEFAULT ARRAY[]::INTEGER[] )
+                                            "tags"      INTEGER[],
+                                            "blocked"   INTEGER[] DEFAULT ARRAY[]::INTEGER[] )
                    RETURNS INTEGER
                        SET search_path FROM CURRENT
                            STABLE
