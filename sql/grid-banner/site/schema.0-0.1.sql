@@ -162,8 +162,8 @@ BEGIN
                    "banner_x_set_by_locale"."setId",
                    "banner_set_x_tag"."setId"
                )
-      ORDER BY CASE "banner"."id"
-                   WHEN ANY ( "blocked" ) THEN 1
+      ORDER BY CASE
+                   WHEN "banner"."id" = ANY ( "blocked" ) THEN 1
                    ELSE 0
                END ASC,
                CASE
