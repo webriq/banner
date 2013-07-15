@@ -111,7 +111,7 @@ CREATE TABLE "banner_x_set_by_tag"
     "bannerId"  INTEGER     NOT NULL,
     "setXTagId" INTEGER     NOT NULL,
 
-    PRIMARY KEY ( "id" ),
+    PRIMARY KEY ( "bannerId", "setXTagId" ),
     FOREIGN KEY ( "bannerId" )
      REFERENCES "banner" ( "id" )
       ON UPDATE CASCADE
