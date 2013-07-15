@@ -8,7 +8,7 @@ use Zork\Factory\AdapterInterface;
 use Zork\Model\MapperAwareInterface;
 use Zork\Model\Exception\LogicException;
 use Zork\Model\Structure\StructureAbstract;
-use Grid\Banner\Model\BannerSet\StructureInterface;
+use Grid\Banner\Model\Banner\StructureInterface;
 
 /**
  * ProxyAbstract
