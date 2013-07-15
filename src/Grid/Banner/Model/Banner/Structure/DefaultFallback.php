@@ -15,7 +15,7 @@ class DefaultFallback extends ProxyAbstract
      *
      * @var string
      */
-    protected static $viewPartial = 'grid/banner/view/default-fallback';
+    protected static $viewPartial = 'grid/banner/view/defaultFallback';
 
     /**
      * Return true if and only if $options accepted by this adapter

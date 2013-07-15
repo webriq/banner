@@ -5,51 +5,26 @@ namespace Grid\Banner\Model\Banner\Structure;
 use Grid\Banner\Model\Banner\StructureAbstract;
 
 /**
- * Banner image
+ * Banner external-image
  *
  * @author David Pozsar <david.pozsar@megaweb.hu>
  */
-class Image extends StructureAbstract
+class ExternalImage extends StructureAbstract
 {
-
-    /**
-     * @const int
-     */
-    const MIN_WIDTH = 50;
-
-    /**
-     * @const int
-     */
-    const MIN_HEIGHT = 50;
-
-    /**
-     * @const string
-     */
-    const DEFAULT_METHOD = 'fit';
-
-    /**
-     * @const string
-     */
-    const DEFAULT_WIDTH = 200;
-
-    /**
-     * @const string
-     */
-    const DEFAULT_HEIGHT = 200;
 
     /**
      * Banner type
      *
      * @var string
      */
-    protected static $type = 'image';
+    protected static $type = 'externalImage';
 
     /**
      * View-partial
      *
      * @var string
      */
-    protected static $viewPartial = 'grid/banner/view/image';
+    protected static $viewPartial = 'grid/banner/view/externalImage';
 
     /**
      * Image url
@@ -66,25 +41,18 @@ class Image extends StructureAbstract
     protected $alternate = '';
 
     /**
-     * Image-method
-     *
-     * @var string
-     */
-    protected $method = self::DEFAULT_METHOD;
-
-    /**
      * Image width
      *
      * @var string
      */
-    protected $width = self::DEFAULT_WIDTH;
+    protected $width;
 
     /**
      * Image height
      *
      * @var string
      */
-    protected $height = self::DEFAULT_HEIGHT;
+    protected $height;
 
     /**
      * Image link to
@@ -125,18 +93,6 @@ class Image extends StructureAbstract
     }
 
     /**
-     * Setter for method
-     *
-     * @param   string $method
-     * @return  \Grid\Banner\Model\Banner\Structure\Image
-     */
-    public function setMethod( $method )
-    {
-        $this->method = (string) $method;
-        return $this;
-    }
-
-    /**
      * Setter for width
      *
      * @param   int $width
@@ -144,7 +100,7 @@ class Image extends StructureAbstract
      */
     public function setWidth( $width )
     {
-        $this->width = max( static::MIN_WIDTH, (int) $width );
+        $this->width = empty( $width ) ? null : (int) $width;
         return $this;
     }
 
@@ -156,7 +112,7 @@ class Image extends StructureAbstract
      */
     public function setHeight( $height )
     {
-        $this->height = max( static::MIN_HEIGHT, (int) $height );
+        $this->height = empty( $height ) ? null : (int) $height;
         return $this;
     }
 

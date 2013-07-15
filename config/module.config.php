@@ -67,9 +67,10 @@ return array(
                 'Grid\Banner\Model\Banner\StructureInterface',
             ),
             'adapter'   => array(
-                ''      => 'Grid\Banner\Model\Banner\Structure\DefaultFallback',
-                'code'  => 'Grid\Banner\Model\Banner\Structure\Code',
-                'image' => 'Grid\Banner\Model\Banner\Structure\Image',
+                ''              => 'Grid\Banner\Model\Banner\Structure\DefaultFallback',
+                'code'          => 'Grid\Banner\Model\Banner\Structure\Code',
+                'externalImage' => 'Grid\Banner\Model\Banner\Structure\ExternalImage',
+                'image'         => 'Grid\Banner\Model\Banner\Structure\Image',
             ),
         ),
     ),
@@ -125,7 +126,7 @@ return array(
                         'type'  => 'Zork\Form\Element\Text',
                         'name'  => 'name',
                         'options'   => array(
-                            'label'     => 'banner.form.name',
+                            'label'     => 'banner.form.set.name',
                             'required'  => true,
                         ),
                     ),
