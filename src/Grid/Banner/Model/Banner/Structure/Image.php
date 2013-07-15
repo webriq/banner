@@ -23,6 +23,21 @@ class Image extends StructureAbstract
     const MIN_HEIGHT = 50;
 
     /**
+     * @const string
+     */
+    const DEFAULT_METHOD = 'fit';
+
+    /**
+     * @const string
+     */
+    const DEFAULT_WIDTH = 200;
+
+    /**
+     * @const string
+     */
+    const DEFAULT_HEIGHT = 200;
+
+    /**
      * Banner type
      *
      * @var string
@@ -37,32 +52,39 @@ class Image extends StructureAbstract
     protected static $viewPartial = 'grid/banner/view/image';
 
     /**
-     * Image uri
+     * Image url
      *
      * @var string
      */
-    protected $uri = '';
+    protected $url = '';
 
     /**
-     * Image alt
+     * Image alternate
      *
      * @var string
      */
-    protected $alt = '';
+    protected $alternate = '';
+
+    /**
+     * Image-method
+     *
+     * @var string
+     */
+    protected $method = self::DEFAULT_METHOD;
 
     /**
      * Image width
      *
      * @var string
      */
-    protected $width = 200;
+    protected $width = self::DEFAULT_WIDTH;
 
     /**
      * Image height
      *
      * @var string
      */
-    protected $height = 200;
+    protected $height = self::DEFAULT_HEIGHT;
 
     /**
      * Image link to
@@ -79,26 +101,38 @@ class Image extends StructureAbstract
     protected $linkTarget;
 
     /**
-     * Setter for uri
+     * Setter for url
      *
-     * @param   string $uri
+     * @param   string $url
      * @return  \Grid\Banner\Model\Banner\Structure\Image
      */
-    public function setUri( $uri )
+    public function setUrl( $url )
     {
-        $this->uri = (string) $uri;
+        $this->url = (string) $url;
         return $this;
     }
 
     /**
-     * Setter for alt
+     * Setter for alternate
      *
-     * @param   string $alt
+     * @param   string $alternate
      * @return  \Grid\Banner\Model\Banner\Structure\Image
      */
-    public function setAlt( $alt )
+    public function setAlternate( $alternate )
     {
-        $this->alt = (string) $alt;
+        $this->alt = (string) $alternate;
+        return $this;
+    }
+
+    /**
+     * Setter for method
+     *
+     * @param   string $method
+     * @return  \Grid\Banner\Model\Banner\Structure\Image
+     */
+    public function setMethod( $method )
+    {
+        $this->method = (string) $method;
         return $this;
     }
 

@@ -1,0 +1,18 @@
+<a name="banner-image-<?= $this->paragraph->id ?>-<?= $this->banner->id ?>"
+<?php if ( $this->banner->linkTo ): ?>
+
+   href="<?= $this->escapeHtmlAttr( $this->banner->linkTo ) ?>"
+<?php if ( $this->banner->linkTarget ): ?>
+
+   target="<?= $this->escapeHtmlAttr( $this->banner->linkTarget ) ?>"
+<?php endif ?>
+<?php endif ?>
+
+   class="banner-image-link" />
+    <img alt="<?= $this->escapeHtmlAttr( $this->banner->alternate ) ?>"
+         src="<?= $this->thumbnail( $this->banner->url, array(
+                      'method'  => $this->banner->method,
+                      'width'   => $this->banner->width,
+                      'height'  => $this->banner->height,
+                  ) ) ?>" />
+</a>
