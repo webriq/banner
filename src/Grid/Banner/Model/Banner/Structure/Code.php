@@ -2,14 +2,12 @@
 
 namespace Grid\Banner\Model\Banner\Structure;
 
-use Grid\Banner\Model\Banner\StructureAbstract;
-
 /**
  * Banner code
  *
  * @author David Pozsar <david.pozsar@megaweb.hu>
  */
-class Code extends StructureAbstract
+class Code extends ProxyAbstract
 {
 
     /**

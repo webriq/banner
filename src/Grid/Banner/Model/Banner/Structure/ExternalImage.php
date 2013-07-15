@@ -2,14 +2,12 @@
 
 namespace Grid\Banner\Model\Banner\Structure;
 
-use Grid\Banner\Model\Banner\StructureAbstract;
-
 /**
  * Banner external-image
  *
  * @author David Pozsar <david.pozsar@megaweb.hu>
  */
-class ExternalImage extends StructureAbstract
+class ExternalImage extends ProxyAbstract
 {
 
     /**
