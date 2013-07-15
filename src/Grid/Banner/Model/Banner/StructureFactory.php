@@ -1,6 +1,6 @@
 <?php
 
-namespace Grid\Banner\Model\BannerSet;
+namespace Grid\Banner\Model\Banner;
 
 use Zork\Factory\FactoryAbstract;
 
