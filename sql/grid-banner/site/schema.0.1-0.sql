@@ -1,3 +1,11 @@
+-- drop functions
+
+DROP FUNCTION "banner_random"( INTEGER,
+                               CHARACTER VARYING,
+                               CHARACTER VARYING,
+                               INTEGER[],
+                               INTEGER[] ) CASCADE;
+
 -- drop tables
 
 DROP TABLE "banner_x_set_by_tag" CASCADE;
