@@ -14,7 +14,7 @@ CREATE TABLE "banner"
 -- table: banner_params                                                       --
 --------------------------------------------------------------------------------
 
-CREATE TABLE "banner_params"
+CREATE TABLE "banner_property"
 (
     "bannerId"  INTEGER             NOT NULL,
     "name"      CHARACTER VARYING   NOT NULL,
