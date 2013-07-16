@@ -185,3 +185,51 @@ BEGIN
     RETURN "v_result";
 
 END $$;
+
+--------------------------------------------------------------------------------
+-- function: banner_x_set_delete_trigger()                                    --
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION "banner_x_set_delete_trigger"()
+                   RETURNS TRIGGER
+                       SET search_path FROM CURRENT
+                  LANGUAGE plpgsql
+                        AS $$
+BEGIN
+
+    DELETE FROM "banner"
+          WHERE "id" = OLD."bannerId";
+
+    RETURN NULL;
+
+END $$;
+
+--------------------------------------------------------------------------------
+-- trigger: banner_x_set_by_global.1000__banner_x_set_by_global_delete        --
+--------------------------------------------------------------------------------
+
+CREATE TRIGGER "1000__banner_x_set_by_global_delete"
+         AFTER DELETE
+            ON "banner_x_set_by_global"
+           FOR EACH ROW
+       EXECUTE PROCEDURE "banner_x_set_delete_trigger"();
+
+--------------------------------------------------------------------------------
+-- trigger: banner_x_set_by_locale.1000__banner_x_set_by_locale_delete        --
+--------------------------------------------------------------------------------
+
+CREATE TRIGGER "1000__banner_x_set_by_locale_delete"
+         AFTER DELETE
+            ON "banner_x_set_by_locale"
+           FOR EACH ROW
+       EXECUTE PROCEDURE "banner_x_set_delete_trigger"();
+
+--------------------------------------------------------------------------------
+-- trigger: banner_x_set_by_tag.1000__banner_x_set_by_tag_delete              --
+--------------------------------------------------------------------------------
+
+CREATE TRIGGER "1000__banner_x_set_by_tag_delete"
+         AFTER DELETE
+            ON "banner_x_set_by_tag"
+           FOR EACH ROW
+       EXECUTE PROCEDURE "banner_x_set_delete_trigger"();

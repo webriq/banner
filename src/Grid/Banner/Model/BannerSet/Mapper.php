@@ -67,4 +67,37 @@ class Mapper extends ReadWriteMapperAbstract
         parent::__construct( $bannerSetStructurePrototype ?: new Structure );
     }
 
+    /**
+     * Find tag banners
+     *
+     * @param   int $setId
+     * @return  \Grid\Banner\Model\Banner\StructureInterface[][]
+     */
+    public function findTagBanners( $setId )
+    {
+        return array(); /// TODO implement
+    }
+
+    /**
+     * Find locale banners
+     *
+     * @param   int $setId
+     * @return  \Grid\Banner\Model\Banner\StructureInterface[][]
+     */
+    public function findLocaleBanners( $setId )
+    {
+        return array(); /// TODO implement
+    }
+
+    /**
+     * Find global banners
+     *
+     * @param   int $setId
+     * @return  \Grid\Banner\Model\Banner\StructureInterface[]
+     */
+    public function findGlobalBanners( $setId )
+    {
+        return array();
+    }
+
 }

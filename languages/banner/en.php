@@ -1,6 +1,9 @@
 <?php
 
 return array(
+    'banner.navTop.set' => 'Banners',
+    'banner.navTop.setCreate' => 'Create banner set',
+    'banner.navTop.setList' => 'List banner sets',
     'banner.form.code.code' => 'Code',
     'banner.form.externalImage.alternate' => 'Alternate text',
     'banner.form.externalImage.url' => 'Image URL',

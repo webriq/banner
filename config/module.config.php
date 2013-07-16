@@ -153,6 +153,44 @@ return array(
         ),
     ),
     'modules'   => array(
+        'Grid\Core'  => array(
+            'navigation'    => array(
+                'function'  => array(
+                    'label'         => 'admin.navTop.function',
+                    'textDomain'    => 'admin',
+                    'order'         => 5,
+                    'uri'           => '#',
+                    'parentOnly'    => true,
+                    'pages'         => array(
+                        'banner'    => array(
+                            'label'         => 'banner.navTop.set',
+                            'textDomain'    => 'banner',
+                            'uri'           => '#',
+                            'order'         => 2,
+                            'parentOnly'    => true,
+                            'pages'         => array(
+                                'list'      => array(
+                                    'label'         => 'banner.navTop.setList',
+                                    'textDomain'    => 'banner',
+                                    'route'         => 'Grid\Banner\Set\List',
+                                    'order'         => 1,
+                                    'resource'      => 'banner',
+                                    'privilege'     => 'view',
+                                ),
+                                'create'    => array(
+                                    'label'         => 'banner.navTop.setCreate',
+                                    'textDomain'    => 'banner',
+                                    'route'         => 'Grid\Banner\Set\Create',
+                                    'order'         => 2,
+                                    'resource'      => 'banner',
+                                    'privilege'     => 'create',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
         'Grid\Paragraph' => array(
             'customizeMapForms' => array(
                 'banner' => array(
