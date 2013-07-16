@@ -126,36 +126,36 @@ CREATE TABLE "banner_x_set_by_tag"
 -- function: banner_random(int, varchar, varchar, int[], int[])               --
 --------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION "banner_random"( "set"       INTEGER,
-                                            "language"  CHARACTER VARYING,
-                                            "locale"    CHARACTER VARYING,
-                                            "tags"      INTEGER[],
-                                            "blocked"   INTEGER[] DEFAULT ARRAY[]::INTEGER[] )
+CREATE OR REPLACE FUNCTION "banner_random"( "p_set"         INTEGER,
+                                            "p_language"    CHARACTER VARYING,
+                                            "p_locale"      CHARACTER VARYING,
+                                            "p_tags"        INTEGER[],
+                                            "p_blocked"     INTEGER[] DEFAULT ARRAY[]::INTEGER[] )
                    RETURNS INTEGER
                        SET search_path FROM CURRENT
                            STABLE
                   LANGUAGE plpgsql
                         AS $$
 DECLARE
-    "result"    INTEGER;
+    "v_result"    INTEGER;
 BEGIN
 
         SELECT "banner"."id"
-          INTO "result"
+          INTO "v_result"
           FROM "banner"
      LEFT JOIN "banner_x_set_by_global"
             ON "banner_x_set_by_global"."bannerId"  = "banner"."id"
-           AND "banner_x_set_by_global"."setId"     = "set"
+           AND "banner_x_set_by_global"."setId"     = "p_set"
      LEFT JOIN "banner_x_set_by_locale"
             ON "banner_x_set_by_locale"."bannerId"  = "banner"."id"
-           AND "banner_x_set_by_locale"."setId"     = "set"
-           AND "banner_x_set_by_locale"."locale"    IN ( "language", "locale" )
+           AND "banner_x_set_by_locale"."setId"     = "p_set"
+           AND "banner_x_set_by_locale"."locale"    IN ( "p_language", "p_locale" )
      LEFT JOIN "banner_x_set_by_tag"
             ON "banner_x_set_by_tag"."bannerId"     = "banner"."id"
      LEFT JOIN "banner_set_x_tag"
             ON "banner_x_set_by_tag"."setXTagId"    = "banner_set_x_tag"."id"
-           AND "banner_set_x_tag"."setId"           = "set"
-           AND "banner_set_x_tag"."tagId"           = ANY ( "tags" )
+           AND "banner_set_x_tag"."setId"           = "p_set"
+           AND "banner_set_x_tag"."tagId"           = ANY ( "p_tags" )
     INNER JOIN "banner_set"
             ON "banner_set"."id" IN (
                    "banner_x_set_by_global"."setId",
@@ -163,7 +163,7 @@ BEGIN
                    "banner_set_x_tag"."setId"
                )
       ORDER BY CASE
-                   WHEN "banner"."id" = ANY ( "blocked" ) THEN 1
+                   WHEN "banner"."id" = ANY ( "p_blocked" ) THEN 1
                    ELSE 0
                END ASC,
                CASE
@@ -171,8 +171,8 @@ BEGIN
                         THEN 3 + "banner_set_x_tag"."priority"
                    WHEN "banner_x_set_by_locale"."setId" IS NOT NULL
                         THEN CASE "banner_x_set_by_locale"."locale"
-                                 WHEN "locale"   THEN 2
-                                 WHEN "language" THEN 1
+                                 WHEN "p_locale"   THEN 2
+                                 WHEN "p_language" THEN 1
                                  ELSE 0
                              END
                    WHEN "banner_x_set_by_global"."setId" IS NOT NULL
@@ -182,6 +182,6 @@ BEGIN
                RANDOM() ASC
          LIMIT 1;
 
-    RETURN "result";
+    RETURN "v_result";
 
 END $$;
