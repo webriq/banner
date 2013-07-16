@@ -1,0 +1,58 @@
+<?php
+/**
+ * @var $this \Zend\View\Renderer\PhpRenderer
+ */
+$this->headTitle( $title = $this->translate( 'banner.list.set', 'banner' ) );
+$view   = $this;
+$rowSet = $this->rowSet();
+
+if ( ! $this->format ): ?>
+<h1><?= $title ?></h1>
+<?php endif ?>
+<?= $this->rowSet( $this->paginator, $rowSet::FLAG_LAYOUT_ALL )
+         ->setColumnTranslatePrefix( 'banner.list.set.column' )
+         ->setColumnTranslatePostfix( 'title' )
+         ->setColumnTranslateTextDomain( 'banner' )
+         ->setPage( $this->page )
+         ->setColumns( array(
+              'name'        => $rowSet::STRING,
+              'tags'        => $rowSet::SET,
+              'locales'     => $rowSet->column( $rowSet::SET, array(), 'locale.sub', '', 'locale' ),
+              'actions'     => function ( $row ) use ( $view ) {
+                $view->placeholder( 'listActions' )->set( '' );
+                $view->placeholder( 'listActions' )->captureStart();
+?>
+<?php if ( $this->isAllowed( 'banner', 'edit' ) ): ?>
+    <a class="action-button edit"
+       title="<?= $view->translate( 'default.edit' ); ?>"
+       href="<?= $this->url( 'Grid\Banner\Set\Edit', array(
+           'locale' => (string) $view->locale(),
+           'id'     => $row->id,
+       ) ) ?>">&nbsp;</a>
+<?php endif ?>
+<?php if ( $this->isAllowed( 'banner', 'delete' ) ): ?>
+    <a class="action-button delete"
+       title="<?= $view->translate( 'default.delete' ); ?>"
+       onclick="return js.require('js.ui.dialog').confirm(this);"
+       href="<?= $this->url( 'Grid\Banner\Set\Delete', array(
+           'locale' => (string) $view->locale(),
+           'id'     => $row->id,
+       )) ?>">&nbps;</a>
+<?php endif ?>
+<?php
+                $view->placeholder( 'listActions' )->captureEnd();
+                return (string) $view->placeholder( 'listActions' );
+              },
+          ) )
+         ->render( $this->format );
+
+if ( ! $this->format && $this->isAllowed( 'banner', 'create' ) ): ?>
+<div class="more-links">
+    <a class="button-appearance"
+       href="<?= $this->url( 'Grid\Banner\Set\Create', array(
+           'locale' => (string) $view->locale(),
+       )) ?>">
+        <?= $view->translate( 'default.createNew' ); ?>
+    </a>
+</div>
+<?php endif ?>
