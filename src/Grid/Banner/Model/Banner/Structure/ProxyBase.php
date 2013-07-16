@@ -3,7 +3,7 @@
 namespace Grid\Banner\Model\Banner\Structure;
 
 use Zork\Model\Structure\MapperAwareAbstract;
-use Grid\Banner\Model\BannerSet\StructureInterface;
+use Grid\Banner\Model\Banner\StructureInterface;
 
 /**
  * Structure
