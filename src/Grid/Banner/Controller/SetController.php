@@ -54,8 +54,7 @@ class SetController extends AbstractListController
     {
         $request    = $this->getRequest();
         $locator    = $this->getServiceLocator();
-        $model      = $locator->get( 'Grid\Banner\Model\BannerSet\Model' )
-                              ->setLocale( $this->getAdminLocale() );
+        $model      = $locator->get( 'Grid\Banner\Model\BannerSet\Model' );
         $form       = $locator->get( 'Form' )
                               ->get( 'Grid\Banner\Set' );
 
@@ -102,8 +101,7 @@ class SetController extends AbstractListController
         $params     = $this->params();
         $request    = $this->getRequest();
         $locator    = $this->getServiceLocator();
-        $model      = $locator->get( 'Grid\Banner\Model\BannerSet\Model' )
-                              ->setLocale( $this->getAdminLocale() );
+        $model      = $locator->get( 'Grid\Banner\Model\BannerSet\Model' );
         $form       = $locator->get( 'Form' )
                               ->get( 'Grid\Banner\Set' );
 
@@ -159,8 +157,7 @@ class SetController extends AbstractListController
     {
         $params     = $this->params();
         $locator    = $this->getServiceLocator();
-        $model      = $locator->get( 'Grid\Banner\Model\BannerSet\Model' )
-                              ->setLocale( $this->getAdminLocale() );
+        $model      = $locator->get( 'Grid\Banner\Model\BannerSet\Model' );
 
         $set = $model->find( $params->fromRoute( 'id' ) );
 

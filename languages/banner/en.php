@@ -22,6 +22,7 @@ return array(
     'banner.form.set.create' => 'Create a banner set',
     'banner.form.set.edit.%s' => 'Edit banner set: %s',
     'banner.list.set' => 'Banner sets',
+    'banner.list.set.column.actions.title' => 'Actions',
     'banner.list.set.column.name.title' => 'Name',
     'banner.list.set.column.tags.title' => 'Tags',
     'banner.list.set.column.locales.title' => 'Languages',
