@@ -370,11 +370,13 @@ class Mapper extends ReadWriteMapperAbstract
                     $setId,
                     $language,
                     $locale,
-                    new Expression\ArrayLiteral(
-                        array_map( 'intval', $tagIds )
+                    new Expression\Cast(
+                        new Expression\ArrayLiteral( $tagIds ),
+                        Expression\Cast::CAST_INTEGER_ARRAY
                     ),
-                    new Expression\ArrayLiteral(
-                        array_map( 'intval', $blockedIds )
+                    new Expression\Cast(
+                        new Expression\ArrayLiteral( $blockedIds ),
+                        Expression\Cast::CAST_INTEGER_ARRAY
                     ),
                 ),
                 array(
