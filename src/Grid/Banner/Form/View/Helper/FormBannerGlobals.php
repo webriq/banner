@@ -139,11 +139,12 @@ class FormBannerGlobals extends AbstractHelper
 
         unset( $attributes['name'] );
         $this->validTagAttributes = $this->validContainerAttributes;
+        $escape = $this->getEscapeHtmlHelper();
 
         return sprintf(
             '<div %s><h3>%s</h3><div>%s</div></div>',
             $this->createAttributesString( $attributes ),
-            $this->getEscapeHtmlHelper()->escape( $label ),
+            $escape( $label ),
             $this->renderBanners( $name, $value )
         );
     }
