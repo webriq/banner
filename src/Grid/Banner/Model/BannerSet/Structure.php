@@ -107,7 +107,6 @@ class Structure extends MapperAwareAbstract
         }
 
         $this->tagBanners = $set;
-
         return $this;
     }
 
@@ -153,7 +152,6 @@ class Structure extends MapperAwareAbstract
         }
 
         $this->localeBanners = $set;
-
         return $this;
     }
 
@@ -194,7 +192,6 @@ class Structure extends MapperAwareAbstract
         }
 
         $this->globalBanners = $set;
-
         return $this;
     }
 
