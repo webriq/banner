@@ -273,7 +273,7 @@ return array(
                 'height'    => array(
                     'spec'  => array(
                         'type'  => 'Zork\Form\Element\Number',
-                        'name'  => 'width',
+                        'name'  => 'height',
                         'options'   => array(
                             'label'     => 'banner.form.image.height',
                             'required'  => false,
@@ -390,7 +390,7 @@ return array(
                 'height'    => array(
                     'spec'  => array(
                         'type'  => 'Zork\Form\Element\Number',
-                        'name'  => 'width',
+                        'name'  => 'height',
                         'options'   => array(
                             'label'     => 'banner.form.image.height',
                             'required'  => true,

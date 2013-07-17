@@ -26,7 +26,11 @@
 
     global.Zork.prototype.banner = new global.Zork.Banner();
 
-    var accordionParams = {
+    var nextNewId = 0,
+        newId = function () {
+            return "n" + ( nextNewId++ );
+        },
+        accordionParams = {
             "active": false,
             "collapsible": true,
             "heightStyle": "content",

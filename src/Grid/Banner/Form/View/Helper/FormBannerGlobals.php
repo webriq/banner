@@ -139,16 +139,39 @@ class FormBannerGlobals extends AbstractHelper
 
         unset( $attributes['name'] );
         $this->validTagAttributes = $this->validContainerAttributes;
-        $escape = $this->getEscapeHtmlHelper();
+        $escapeHtml     = $this->getEscapeHtmlHelper();
+        $escapeHtmlAttr = $this->getEscapeHtmlAttrHelper();
+
+        /* @var $factory \Grid\Banner\Model\Banner\StructureFactory */
+        $appService = $this->getAppServiceHelper();
+        $factory    = $appService( 'Grid\Banner\Model\Banner\StructureFactory' );
+        $templates  = '';
+
+        foreach ( $factory->getRegisteredAdapters() as $type => $_ )
+        {
+            if ( $templates )
+            {
+                $templates .= PHP_EOL;
+            }
+
+            $templates .= sprintf(
+                '<span class="type-template" data-type="%s" data-template="%s"></span>',
+                $escapeHtmlAttr( $type ),
+                $escapeHtmlAttr( $this->renderTypeForm( $type, $name . '[__index__]' ) )
+            );
+        }
 
         return sprintf(
-            '<div %s><div class="banner-group">' .
-                '<div class="banner-group-header">%s</div>' .
-                '<div class="banner-group-banners">%s</div>' .
-            '</div></div>',
+            '<div %s>' . PHP_EOL .
+                '<div class="banner-group">' . PHP_EOL .
+                    '<div class="banner-group-header">%s</div>' . PHP_EOL .
+                    '<div class="banner-group-banners">%s</div>' . PHP_EOL .
+                '</div>' . PHP_EOL . '%s' .PHP_EOL .
+            '</div>',
             $this->createAttributesString( $attributes ),
-            $escape( $label ),
-            $this->renderBanners( $name, $value )
+            $escapeHtml( $label ),
+            $this->renderBanners( $name, $value ),
+            $templates
         );
     }
 
@@ -162,7 +185,6 @@ class FormBannerGlobals extends AbstractHelper
     protected function renderBanners( $name, array $values = array() )
     {
         $markup = '';
-        $helper = $this->getFormHelper();
 
         foreach ( $values as $index => $banner )
         {
@@ -187,18 +209,37 @@ class FormBannerGlobals extends AbstractHelper
                 continue;
             }
 
-            $form = $this->getBannerFormByType( $banner['type'] );
             $id = empty( $banner['id'] ) ? '_' . $index : $banner['id'];
 
-            $markup .= $helper->renderFieldset(
-                $form->setData( $banner )
-                     ->setWrapElements( true )
-                     ->setName( $name . '[' . $id . ']' )
-                     ->prepare()
+            $markup .= $this->renderTypeForm(
+                $banner['type'],
+                $name . '[' . $id . ']',
+                $banner
             );
         }
 
         return $markup;
+    }
+
+    /**
+     * Render type form
+     *
+     * @param   string  $type
+     * @param   string  $name
+     * @param   array   $data
+     * @return  string
+     */
+    protected function renderTypeForm( $type, $name, array $data = array() )
+    {
+        $helper = $this->getFormHelper();
+        $form   = $this->getBannerFormByType( $type );
+
+        return $helper->renderFieldset(
+            $form->setData( $data )
+                 ->setWrapElements( true )
+                 ->setName( $name )
+                 ->prepare()
+        );
     }
 
     /**
