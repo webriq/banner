@@ -189,6 +189,7 @@ class FormBannerGlobals extends AbstractHelper
 
             $markup .= $helper->renderFieldset(
                 $form->setData( $banner )
+                     ->setWrapElements( true )
                      ->setName( $name . '[' . $id . ']' )
                      ->prepare()
             );
