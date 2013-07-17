@@ -27,13 +27,14 @@
     global.Zork.prototype.banner = new global.Zork.Banner();
 
     var accordionParams = {
+            "active": false,
             "collapsible": true,
             "heightStyle": "content",
-            "header": "> .banner-group > .header"
+            "header": "> .banner-group > .banner-group-header"
         },
         sortableParams = {
             "axis": "y",
-            "handle": ".header",
+            "handle": ".banner-group-header",
             "stop": function( event, ui ) {
                 ui.item.children( "legend" ).triggerHandler( "focusout" );
             }

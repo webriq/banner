@@ -142,7 +142,10 @@ class FormBannerGlobals extends AbstractHelper
         $escape = $this->getEscapeHtmlHelper();
 
         return sprintf(
-            '<div %s><div class="banner-group"><label>%s</label><div>%s</div></div></div>',
+            '<div %s><div class="banner-group">' .
+                '<div class="banner-group-header">%s</div>' .
+                '<div class="banner-group-banners">%s</div>' .
+            '</div></div>',
             $this->createAttributesString( $attributes ),
             $escape( $label ),
             $this->renderBanners( $name, $value )
