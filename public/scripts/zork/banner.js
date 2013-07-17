@@ -26,6 +26,19 @@
 
     global.Zork.prototype.banner = new global.Zork.Banner();
 
+    var accordionParams = {
+            "collapsible": true,
+            "heightStyle": "content",
+            "header": "> fieldset > legend"
+        },
+        sortableParams = {
+            "axis": "y",
+            "handle": "h3",
+            "stop": function( event, ui ) {
+                ui.item.children( "h3" ).triggerHandler( "focusout" );
+            }
+        };
+
     /**
      * Global banners
      *
@@ -34,12 +47,7 @@
     global.Zork.Banner.prototype.globals = function ( element )
     {
         element = $( element );
-
-        element.accordion( {
-            "collapsible": true,
-            "heightStyle": "content",
-            "header": "> fieldset > legend"
-        } );
+        element.accordion( accordionParams );
     };
 
     global.Zork.Banner.prototype.globals.isElementConstructor = true;
