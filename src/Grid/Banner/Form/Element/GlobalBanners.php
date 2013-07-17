@@ -1,6 +1,6 @@
 <?php
 
-namespace Grid\banner\Form\Element\GlobalBanners;
+namespace Grid\Banner\Form\Element;
 
 use Zork\Form\Element;
 
