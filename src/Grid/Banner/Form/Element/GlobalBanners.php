@@ -17,7 +17,7 @@ class GlobalBanners extends Element
      */
     protected $attributes = array(
         'type'          => 'banner_globals',
-     // 'data-js-type'  => '',
+        'data-js-type'  => 'js.banner.globals',
     );
 
 }
