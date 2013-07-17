@@ -131,6 +131,204 @@ return array(
                         ),
                     ),
                 ),
+                'submit' => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Submit',
+                        'name'  => 'submit',
+                        'attributes'  => array(
+                            'value' => 'banner.form.set.submit',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        'Grid\Banner\Type\Code' => array(
+            'elements'  => array(
+                'code' => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Textarea',
+                        'name'  => 'code',
+                        'options'   => array(
+                            'label'     => 'banner.form.code.code',
+                            'required'  => true,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        'Grid\Banner\Type\ExternalImage' => array(
+            'elements'  => array(
+                'url' => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Url',
+                        'name'  => 'url',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.url',
+                            'required'  => true,
+                        ),
+                    ),
+                ),
+                'alternate' => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Text',
+                        'name'  => 'alternate',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.alternate',
+                            'required'  => true,
+                        ),
+                    ),
+                ),
+                'linkTo'    => array(
+                    'spec'  => array(
+                        'type'  => 'Zork\Form\Element\Text',
+                        'name'  => 'linkTo',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.linkTo',
+                            'required'  => false,
+                        ),
+                    ),
+                ),
+                'linkTarget'    => array(
+                    'spec'      => array(
+                        'type'      => 'Zork\Form\Element\Select',
+                        'name'      => 'linkTarget',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.linkTarget',
+                            'required'  => false,
+                            'options'   => array(
+                                ''          => 'default.link.target.default',
+                                '_self'     => 'default.link.target.self',
+                                '_blank'    => 'default.link.target.blank',
+                                '_parent'   => 'default.link.target.parent',
+                                '_top'      => 'default.link.target.top',
+                            ),
+                            'text_domain' => 'default',
+                        ),
+                    ),
+                ),
+                'width'     => array(
+                    'spec'  => array(
+                        'type'  => 'Zork\Form\Element\Number',
+                        'name'  => 'width',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.width',
+                            'required'  => false,
+                            'min'       => 50,
+                            'max'       => 800,
+                        ),
+                    ),
+                ),
+                'height'    => array(
+                    'spec'  => array(
+                        'type'  => 'Zork\Form\Element\Number',
+                        'name'  => 'width',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.height',
+                            'required'  => false,
+                            'min'       => 50,
+                            'max'       => 800,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        'Grid\Banner\Type\Image' => array(
+            'elements'  => array(
+                'url'   => array(
+                    'spec'  => array(
+                        'type'      => 'Zork\Form\Element\PathSelect',
+                        'name'      => 'url',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.url',
+                            'required'  => true,
+                        ),
+                    ),
+                ),
+                'alternate' => array(
+                    'spec'  => array(
+                        'type'  => 'Zork\Form\Element\Text',
+                        'name'  => 'alternate',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.alternate',
+                            'required'  => true,
+                        ),
+                    ),
+                ),
+                'linkTo'    => array(
+                    'spec'  => array(
+                        'type'  => 'Zork\Form\Element\Text',
+                        'name'  => 'linkTo',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.linkTo',
+                            'required'  => false,
+                        ),
+                    ),
+                ),
+                'linkTarget'    => array(
+                    'spec'      => array(
+                        'type'      => 'Zork\Form\Element\Select',
+                        'name'      => 'linkTarget',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.linkTarget',
+                            'required'  => false,
+                            'options'   => array(
+                                ''          => 'default.link.target.default',
+                                '_self'     => 'default.link.target.self',
+                                '_blank'    => 'default.link.target.blank',
+                                '_parent'   => 'default.link.target.parent',
+                                '_top'      => 'default.link.target.top',
+                            ),
+                            'text_domain' => 'default',
+                        ),
+                    ),
+                ),
+                'method'    => array(
+                    'spec'  => array(
+                        'type'      => 'Zork\Form\Element\Select',
+                        'name'      => 'method',
+                        'options'   => array(
+                            'label'         => 'banner.form.image.method',
+                            'required'      => true,
+                            'text_domain'   => 'image',
+                            'options'       => array(
+                                'fit'       => 'image.method.fit',
+                                'frame'     => 'image.method.frame',
+                                'cut'       => 'image.method.cut',
+                                'stretch'   => 'image.method.stretch',
+                            ),
+                        ),
+                    ),
+                ),
+                'width'     => array(
+                    'spec'  => array(
+                        'type'  => 'Zork\Form\Element\Number',
+                        'name'  => 'width',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.width',
+                            'required'  => true,
+                            'min'       => 50,
+                            'max'       => 800,
+                        ),
+                        'attributes'    => array(
+                            'value'     => 100,
+                        ),
+                    ),
+                ),
+                'height'    => array(
+                    'spec'  => array(
+                        'type'  => 'Zork\Form\Element\Number',
+                        'name'  => 'width',
+                        'options'   => array(
+                            'label'     => 'banner.form.image.height',
+                            'required'  => true,
+                            'min'       => 50,
+                            'max'       => 800,
+                        ),
+                        'attributes'    => array(
+                            'value'     => 100,
+                        ),
+                    ),
+                ),
             ),
         ),
     ),

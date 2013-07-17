@@ -28,12 +28,12 @@ class Image extends ProxyAbstract
     /**
      * @const string
      */
-    const DEFAULT_WIDTH = 200;
+    const DEFAULT_WIDTH = 100;
 
     /**
      * @const string
      */
-    const DEFAULT_HEIGHT = 200;
+    const DEFAULT_HEIGHT = 100;
 
     /**
      * Banner type
