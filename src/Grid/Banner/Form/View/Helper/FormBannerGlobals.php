@@ -149,6 +149,11 @@ class FormBannerGlobals extends AbstractHelper
 
         foreach ( $factory->getRegisteredAdapters() as $type => $_ )
         {
+            if ( empty( $type ) )
+            {
+                continue; // fallback
+            }
+
             if ( $templates )
             {
                 $templates .= PHP_EOL;
