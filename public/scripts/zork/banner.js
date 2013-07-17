@@ -29,13 +29,13 @@
     var accordionParams = {
             "collapsible": true,
             "heightStyle": "content",
-            "header": "> fieldset > legend"
+            "header": "> .banner-group > .header"
         },
         sortableParams = {
             "axis": "y",
-            "handle": "h3",
+            "handle": ".header",
             "stop": function( event, ui ) {
-                ui.item.children( "h3" ).triggerHandler( "focusout" );
+                ui.item.children( "legend" ).triggerHandler( "focusout" );
             }
         };
 
