@@ -75,7 +75,55 @@ class Mapper extends ReadWriteMapperAbstract
      */
     public function findTagBanners( $setId )
     {
-        return array(); /// TODO implement
+        $sql = $this->sql(
+            $this->getTableInSchema( 'banner_x_set_by_tag' )
+        );
+
+        $select = $sql->select()
+                      ->columns( array( 'bannerId' ) )
+                      ->join( 'banner_set_x_tag',
+                              'banner_set_x_tag.id = setXTagId',
+                              array( 'tagId' ) )
+                      ->where( array(
+                          'setId'       => (int) $setId,
+                      ) )
+                      ->order( array(
+                          'priority'    => 'DESC',
+                          'bannerId'    => 'ASC',
+                      ) );
+
+        $result = $this->sql()
+                       ->prepareStatementForSqlObject( $select )
+                       ->execute();
+
+        if ( $result->getAffectedRows() < 1 )
+        {
+            return array();
+        }
+
+        $ids    = array();
+        $tagIds = array();
+        $return = array();
+
+        foreach ( $result as $row )
+        {
+            $tagIds[$ids[] = (int) $row['bannerId']] = $row['tagId'];
+        }
+
+        foreach ( $this->getBannerMapper()
+                       ->findAllByIds( $ids ) as $banner )
+        {
+            $tagId = $tagIds[$banner->id];
+
+            if ( empty( $return[$tagId] ) )
+            {
+                $return[$tagId] = array();
+            }
+
+            $return[$tagId][] = $banner;
+        }
+
+        return $return;
     }
 
     /**
@@ -86,7 +134,52 @@ class Mapper extends ReadWriteMapperAbstract
      */
     public function findLocaleBanners( $setId )
     {
-        return array(); /// TODO implement
+        $sql = $this->sql(
+            $this->getTableInSchema( 'banner_x_set_by_locale' )
+        );
+
+        $select = $sql->select()
+                      ->columns( array( 'bannerId', 'locale' ) )
+                      ->where( array(
+                          'setId'       => (int) $setId,
+                      ) )
+                      ->order( array(
+                          'locale'      => 'ASC',
+                          'bannerId'    => 'ASC',
+                      ) );
+
+        $result = $this->sql()
+                       ->prepareStatementForSqlObject( $select )
+                       ->execute();
+
+        if ( $result->getAffectedRows() < 1 )
+        {
+            return array();
+        }
+
+        $ids        = array();
+        $locales    = array();
+        $return     = array();
+
+        foreach ( $result as $row )
+        {
+            $locales[$ids[] = (int) $row['bannerId']] = $row['locale'];
+        }
+
+        foreach ( $this->getBannerMapper()
+                       ->findAllByIds( $ids ) as $banner )
+        {
+            $locale = $locales[$banner->id];
+
+            if ( empty( $return[$locale] ) )
+            {
+                $return[$locale] = array();
+            }
+
+            $return[$locale][] = $banner;
+        }
+
+        return $return;
     }
 
     /**
@@ -97,7 +190,37 @@ class Mapper extends ReadWriteMapperAbstract
      */
     public function findGlobalBanners( $setId )
     {
-        return array();
+        $sql = $this->sql(
+            $this->getTableInSchema( 'banner_x_set_by_global' )
+        );
+
+        $select = $sql->select()
+                      ->columns( array( 'bannerId' ) )
+                      ->where( array(
+                          'setId'       => (int) $setId,
+                      ) )
+                      ->order( array(
+                          'bannerId'    => 'ASC',
+                      ) );
+
+        $result = $this->sql()
+                       ->prepareStatementForSqlObject( $select )
+                       ->execute();
+
+        if ( $result->getAffectedRows() < 1 )
+        {
+            return array();
+        }
+
+        $ids = array();
+
+        foreach ( $result as $row )
+        {
+            $ids[] = (int) $row['bannerId'];
+        }
+
+        return $this->getBannerMapper()
+                    ->findAllByIds( $ids );
     }
 
 }

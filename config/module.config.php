@@ -121,12 +121,22 @@ return array(
         ),
         'Grid\Banner\Set' => array(
             'elements'  => array(
-                'name' => array(
+                'name'  => array(
                     'spec' => array(
                         'type'  => 'Zork\Form\Element\Text',
                         'name'  => 'name',
                         'options'   => array(
                             'label'     => 'banner.form.set.name',
+                            'required'  => true,
+                        ),
+                    ),
+                ),
+                'globalBanners' => array(
+                    'spec'      => array(
+                        'type'  => 'Grid\Banner\Form\Element\GlobalBanners',
+                        'name'  => 'globalBanners',
+                        'options'   => array(
+                            'label'     => 'banner.form.set.globalBanners',
                             'required'  => true,
                         ),
                     ),
@@ -144,7 +154,28 @@ return array(
         ),
         'Grid\Banner\Type\Code' => array(
             'elements'  => array(
-                'code' => array(
+                'id'    => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Hidden',
+                        'name'  => 'id',
+                        'options'   => array(
+                            'required'  => false,
+                        ),
+                    ),
+                ),
+                'type'  => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Hidden',
+                        'name'  => 'type',
+                        'options'   => array(
+                            'required'  => true,
+                        ),
+                        'attributes'    => array(
+                            'value'     => 'code',
+                        ),
+                    ),
+                ),
+                'code'  => array(
                     'spec' => array(
                         'type'  => 'Zork\Form\Element\Textarea',
                         'name'  => 'code',
@@ -158,6 +189,27 @@ return array(
         ),
         'Grid\Banner\Type\ExternalImage' => array(
             'elements'  => array(
+                'id'    => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Hidden',
+                        'name'  => 'id',
+                        'options'   => array(
+                            'required'  => false,
+                        ),
+                    ),
+                ),
+                'type'  => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Hidden',
+                        'name'  => 'type',
+                        'options'   => array(
+                            'required'  => true,
+                        ),
+                        'attributes'    => array(
+                            'value'     => 'externalImage',
+                        ),
+                    ),
+                ),
                 'url' => array(
                     'spec' => array(
                         'type'  => 'Zork\Form\Element\Url',
@@ -169,7 +221,7 @@ return array(
                     ),
                 ),
                 'alternate' => array(
-                    'spec' => array(
+                    'spec'  => array(
                         'type'  => 'Zork\Form\Element\Text',
                         'name'  => 'alternate',
                         'options'   => array(
@@ -214,7 +266,7 @@ return array(
                             'label'     => 'banner.form.image.width',
                             'required'  => false,
                             'min'       => 50,
-                            'max'       => 800,
+                            'max'       => 1000,
                         ),
                     ),
                 ),
@@ -226,7 +278,7 @@ return array(
                             'label'     => 'banner.form.image.height',
                             'required'  => false,
                             'min'       => 50,
-                            'max'       => 800,
+                            'max'       => 1000,
                         ),
                     ),
                 ),
@@ -234,6 +286,27 @@ return array(
         ),
         'Grid\Banner\Type\Image' => array(
             'elements'  => array(
+                'id'    => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Hidden',
+                        'name'  => 'id',
+                        'options'   => array(
+                            'required'  => false,
+                        ),
+                    ),
+                ),
+                'type'  => array(
+                    'spec' => array(
+                        'type'  => 'Zork\Form\Element\Hidden',
+                        'name'  => 'type',
+                        'options'   => array(
+                            'required'  => true,
+                        ),
+                        'attributes'    => array(
+                            'value'     => 'image',
+                        ),
+                    ),
+                ),
                 'url'   => array(
                     'spec'  => array(
                         'type'      => 'Zork\Form\Element\PathSelect',
@@ -307,7 +380,7 @@ return array(
                             'label'     => 'banner.form.image.width',
                             'required'  => true,
                             'min'       => 50,
-                            'max'       => 800,
+                            'max'       => 1000,
                         ),
                         'attributes'    => array(
                             'value'     => 100,
@@ -322,7 +395,7 @@ return array(
                             'label'     => 'banner.form.image.height',
                             'required'  => true,
                             'min'       => 50,
-                            'max'       => 800,
+                            'max'       => 1000,
                         ),
                         'attributes'    => array(
                             'value'     => 100,
@@ -334,7 +407,14 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
-            'grid/paragraph/render/banner' => __DIR__ . '/../view/grid/paragraph/render/banner.phtml',
+            'grid/banner/set/create'            => __DIR__ . '/../view/grid/banner/set/create.phtml',
+            'grid/banner/set/edit'              => __DIR__ . '/../view/grid/banner/set/edit.phtml',
+            'grid/banner/set/list'              => __DIR__ . '/../view/grid/banner/set/list.phtml',
+            'grid/banner/view/code'             => __DIR__ . '/../view/grid/banner/view/code.phtml',
+            'grid/banner/view/defaultFallback'  => __DIR__ . '/../view/grid/banner/view/defaultFallback.phtml',
+            'grid/banner/view/externalImage'    => __DIR__ . '/../view/grid/banner/view/externalImage.phtml',
+            'grid/banner/view/image'            => __DIR__ . '/../view/grid/banner/view/image.phtml',
+            'grid/paragraph/render/banner'      => __DIR__ . '/../view/grid/paragraph/render/banner.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

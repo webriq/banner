@@ -71,7 +71,7 @@ class SetController extends AbstractListController
             if ( $form->isValid() && $set->save() )
             {
                 $this->messenger()
-                     ->add( 'banner.set.form.success',
+                     ->add( 'banner.form.set.success',
                             'banner', Message::LEVEL_INFO );
 
                 return $this->redirect()
@@ -82,10 +82,17 @@ class SetController extends AbstractListController
             else
             {
                 $this->messenger()
-                     ->add( 'banner.set.form.failed',
+                     ->add( 'banner.form.set.failed',
                             'banner', Message::LEVEL_ERROR );
             }
         }
+
+        $form->setCancel(
+            $this->url()
+                 ->fromRoute( 'Grid\Banner\Set\List', array(
+                        'locale' => (string) $this->locale(),
+                    ) )
+        );
 
         return array(
             'form' => $form,
@@ -126,7 +133,7 @@ class SetController extends AbstractListController
             if ( $form->isValid() && $set->save() )
             {
                 $this->messenger()
-                     ->add( 'banner.set.form.success',
+                     ->add( 'banner.form.set.success',
                             'banner', Message::LEVEL_INFO );
 
                 return $this->redirect()
@@ -137,11 +144,18 @@ class SetController extends AbstractListController
             else
             {
                 $this->messenger()
-                     ->add( 'banner.set.form.failed',
+                     ->add( 'banner.form.set.failed',
                             'banner', Message::LEVEL_ERROR );
 
             }
         }
+
+        $form->setCancel(
+            $this->url()
+                 ->fromRoute( 'Grid\Banner\Set\List', array(
+                        'locale' => (string) $this->locale(),
+                    ) )
+        );
 
         return array(
             'form' => $form,
@@ -172,13 +186,13 @@ class SetController extends AbstractListController
         if ( $model->delete( $set ) )
         {
             $this->messenger()
-                 ->add( 'banner.set.action.delete.success',
+                 ->add( 'banner.action.set.delete.success',
                         'banner', Message::LEVEL_INFO );
         }
         else
         {
             $this->messenger()
-                 ->add( 'banner.set.action.delete.failed',
+                 ->add( 'banner.action.set.delete.failed',
                         'banner', Message::LEVEL_INFO );
         }
 

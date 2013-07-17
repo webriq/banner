@@ -1,6 +1,8 @@
 <?php
 
 return array(
+    'banner.action.set.delete.success' => 'Banner set delete success',
+    'banner.action.set.delete.failed' => 'Banner set delete failed',
     'banner.navTop.set' => 'Banners',
     'banner.navTop.setCreate' => 'Create banner set',
     'banner.navTop.setList' => 'List banner sets',
@@ -15,6 +17,13 @@ return array(
     'banner.form.set.name' => 'Name',
     'banner.form.set.create' => 'Create a banner set',
     'banner.form.set.edit.%s' => 'Edit banner set: %s',
+    'banner.form.set.submit' => 'Save',
+    'banner.form.set.success' => 'Banner set save success',
+    'banner.form.set.failed' => 'Banner set save failed',
+    'banner.form.set.global' => 'Global',
+    'banner.form.set.globalBanners' => 'Global banners',
+    'banner.form.set.localeBanners' => 'Banners by languages',
+    'banner.form.set.tagBanners' => 'Banners by tags',
     'banner.list.set' => 'Banner sets',
     'banner.list.set.column.actions.title' => 'Actions',
     'banner.list.set.column.name.title' => 'Name',

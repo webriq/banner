@@ -351,6 +351,19 @@ class Mapper extends ReadWriteMapperAbstract
     }
 
     /**
+     * Find all by ids
+     *
+     * @param   array $ids
+     * @return  \Grid\Banner\Model\Banner\StructureInterface[][]
+     */
+    public function findAllByIds( array $ids )
+    {
+        return $this->findAll( array(
+            new Sql\Predicate\In( 'id', $ids )
+        ) );
+    }
+
+    /**
      * @param   int     $setId
      * @param   string  $locale
      * @param   array   $tagIds

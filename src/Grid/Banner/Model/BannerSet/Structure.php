@@ -4,12 +4,12 @@ namespace Grid\Banner\Model\BannerSet;
 
 use Zork\Model\Structure\MapperAwareAbstract;
 use Grid\Banner\Model\Banner\StructureInterface as BannerStructure;
-use Grid\Banner\Model\Banner\StructureFactory as BannerStructureFactory;
 
 /**
  * Banner-set structure
  *
  * @author David Pozsar <david.pozsar@megaweb.hu>
+ * @method \Grid\Banner\Model\BannerSet\Mapper getMapper()
  */
 class Structure extends MapperAwareAbstract
 {
@@ -52,6 +52,20 @@ class Structure extends MapperAwareAbstract
     }
 
     /**
+     * @param   array   $data
+     * @return  \Grid\Banner\Model\Banner\StructureInterface
+     */
+    protected function createBanner( $data )
+    {
+        $mapper = $this->getMapper()
+                       ->getBannerMapper();
+        $banner = $mapper->getStructureFactory()
+                         ->factory( $data );
+        $banner->setMapper( $mapper );
+        return $banner;
+    }
+
+    /**
      * Get tag banners
      *
      * @return  null|\Grid\Banner\Model\Banner\StructureInterface[][]
@@ -85,7 +99,7 @@ class Structure extends MapperAwareAbstract
             {
                 if ( ! $banner instanceof BannerStructure )
                 {
-                    $banner = BannerStructureFactory::factory( $banner );
+                    $banner = $this->createBanner( $banner );
                 }
 
                 $set[$tagId][] = $banner;
@@ -104,13 +118,13 @@ class Structure extends MapperAwareAbstract
      */
     public function getLocaleBanners()
     {
-        if ( $this->id && null === $this->_tagBanners )
+        if ( $this->id && null === $this->_localeBanners )
         {
-            $this->_tagBanners = $this->getMapper()
-                                      ->findLocaleBanners( $this->id );
+            $this->_localeBanners = $this->getMapper()
+                                         ->findLocaleBanners( $this->id );
         }
 
-        return $this->_tagBanners;
+        return $this->_localeBanners;
     }
 
     /**
@@ -131,7 +145,7 @@ class Structure extends MapperAwareAbstract
             {
                 if ( ! $banner instanceof BannerStructure )
                 {
-                    $banner = BannerStructureFactory::factory( $banner );
+                    $banner = $this->createBanner( $banner );
                 }
 
                 $set[$locale][] = $banner;
@@ -150,13 +164,13 @@ class Structure extends MapperAwareAbstract
      */
     public function getGlobalBanners()
     {
-        if ( $this->id && null === $this->_tagBanners )
+        if ( $this->id && null === $this->_globalBanners )
         {
-            $this->_tagBanners = $this->getMapper()
-                                      ->findGlobalBanners( $this->id );
+            $this->_globalBanners = $this->getMapper()
+                                         ->findGlobalBanners( $this->id );
         }
 
-        return $this->_tagBanners;
+        return $this->_globalBanners;
     }
 
     /**
@@ -173,7 +187,7 @@ class Structure extends MapperAwareAbstract
         {
             if ( ! $banner instanceof BannerStructure )
             {
-                $banner = BannerStructureFactory::factory( $banner );
+                $banner = $this->createBanner( $banner );
             }
 
             $set[] = $banner;
