@@ -137,7 +137,7 @@ return array(
                         'name'  => 'globalBanners',
                         'options'   => array(
                             'label'     => 'banner.form.set.globalBanners',
-                            'required'  => true,
+                            'required'  => false,
                         ),
                     ),
                 ),

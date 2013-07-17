@@ -27,17 +27,17 @@ class Structure extends MapperAwareAbstract
     /**
      * @var \Grid\Banner\Model\Banner\StructureInterface[][]
      */
-    private $_tagBanners;
+    protected $tagBanners;
 
     /**
      * @var \Grid\Banner\Model\Banner\StructureInterface[][]
      */
-    private $_localeBanners;
+    protected $localeBanners;
 
     /**
      * @var \Grid\Banner\Model\Banner\StructureInterface[]
      */
-    private $_globalBanners;
+    protected $globalBanners;
 
     /**
      * Setter for name
@@ -72,13 +72,13 @@ class Structure extends MapperAwareAbstract
      */
     public function getTagBanners()
     {
-        if ( $this->id && null === $this->_tagBanners )
+        if ( $this->id && null === $this->tagBanners )
         {
-            $this->_tagBanners = $this->getMapper()
-                                      ->findTagBanners( $this->id );
+            $this->tagBanners = $this->getMapper()
+                                     ->findTagBanners( $this->id );
         }
 
-        return $this->_tagBanners;
+        return $this->tagBanners;
     }
 
     /**
@@ -106,7 +106,7 @@ class Structure extends MapperAwareAbstract
             }
         }
 
-        $this->_tagBanners = $set;
+        $this->tagBanners = $set;
 
         return $this;
     }
@@ -118,13 +118,13 @@ class Structure extends MapperAwareAbstract
      */
     public function getLocaleBanners()
     {
-        if ( $this->id && null === $this->_localeBanners )
+        if ( $this->id && null === $this->localeBanners )
         {
-            $this->_localeBanners = $this->getMapper()
-                                         ->findLocaleBanners( $this->id );
+            $this->localeBanners = $this->getMapper()
+                                        ->findLocaleBanners( $this->id );
         }
 
-        return $this->_localeBanners;
+        return $this->localeBanners;
     }
 
     /**
@@ -152,7 +152,7 @@ class Structure extends MapperAwareAbstract
             }
         }
 
-        $this->_localeBanners = $set;
+        $this->localeBanners = $set;
 
         return $this;
     }
@@ -164,13 +164,13 @@ class Structure extends MapperAwareAbstract
      */
     public function getGlobalBanners()
     {
-        if ( $this->id && null === $this->_globalBanners )
+        if ( $this->id && null === $this->globalBanners )
         {
-            $this->_globalBanners = $this->getMapper()
-                                         ->findGlobalBanners( $this->id );
+            $this->globalBanners = $this->getMapper()
+                                        ->findGlobalBanners( $this->id );
         }
 
-        return $this->_globalBanners;
+        return $this->globalBanners;
     }
 
     /**
@@ -193,7 +193,7 @@ class Structure extends MapperAwareAbstract
             $set[] = $banner;
         }
 
-        $this->_globalBanners = $set;
+        $this->globalBanners = $set;
 
         return $this;
     }
