@@ -301,8 +301,8 @@
         var addTag      = $( '<input type="search">' ),
             addDiv      = $( "<div>" ).addClass( "banner-group-add" ),
             addGroup    = addButtons( element, {
-                "__locale__": function ( group ) {
-                    return group.data( "locale" );
+                "__tagid__": function ( group ) {
+                    return group.data( "tagid" );
                 }
             } );
 
