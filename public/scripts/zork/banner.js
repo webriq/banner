@@ -57,6 +57,21 @@
                     "scrollLeft": o.left - 20
                 } );
             }
+
+            element.css( {
+                       "outline-width": "10px",
+                       "outline-color": "rgba(255, 128, 0, 1.0)"
+                   } )
+                   .animate( {
+                       "outline-color": "rgba(255, 128, 0, 0.0)"
+                   }, {
+                       "complete": function () {
+                           element.css( {
+                               "outline-width": "",
+                               "outline-color": ""
+                           } );
+                       }
+                   } );
         },
         addButtons = function ( element, templateTranslations ) {
             element.addClass( "banner-group-list" );
