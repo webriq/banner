@@ -25,9 +25,20 @@
     font-weight: bold;
 }
 
+.banner-group .banner-group-banners .banner-add
+{
+    margin-bottom: 1em;
+}
+
 .banner-group .banner-group-banners .banner-add button
 {
-    width: 1.5em;
+    width: 1.8em;
+}
+
+.banner-group .banner-group-banners .banner-add button,
+.banner-group .banner-group-banners .banner-add select
+{
+    height: 1.8em;
 }
 
 .banner-group .banner-group-header button,

@@ -52,7 +52,7 @@
                         banners  = group.find( "> .banner-group-banners:first" ),
                         addType  = $( "<select>" );
 
-                    if ( true || ! isGlobal ) { /// TODO: remove true
+                    if ( ! isGlobal ) {
                         header.prepend(
                             $( "<button type='button'>" )
                                 .css( "float", "right" )
@@ -93,12 +93,24 @@
                                     } )
                                     .click( function () {
                                         var type     = addType.val(),
-                                            template = templates.filter( "[data-type='" + type + "']:first" );
+                                            template = templates.filter( "[data-type='" + type + "']:first" ),
+                                            banner   = $(
+                                                String( template.data( "template" ) )
+                                                    .replace( "__index__", newId() )
+                                            );
 
-                                        banners.append(
-                                            $( template.data( "template" ) )
-                                                .each( addBanner )
-                                        );
+                                        banners.append( banner );
+                                        banner.each( addBanner );
+
+                                        if ( 'scrollIntoView' in banner[0] ) {
+                                            banner[0].scrollIntoView();
+                                        } else {
+                                            var o = banner.offset();
+                                            $( "html, body" ).animate( {
+                                                "scrollTop": o.top - 20,
+                                                "scrollLeft": o.left - 20
+                                            } );
+                                        }
                                     } )
                             )
                             .inputset()
@@ -125,7 +137,7 @@
 
             element.find( "> .banner-group" )
                    .each( addGroup )
-                   .find( "> .banner" )
+                   .find( "> .banner-group-banners > .banner" )
                    .each( addBanner );
 
             return addGroup;
