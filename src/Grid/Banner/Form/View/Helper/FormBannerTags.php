@@ -51,8 +51,23 @@ class FormBannerTags extends FormBannerAbstract
         {
             $tag = $tagModel->find( $tagId );
 
+            if ( $tag && $tag->locale )
+            {
+                $locale = 'locale.sub.' . $tag->locale;
+
+                if ( $this->isTranslatorEnabled() && $this->hasTranslator() )
+                {
+                    $locale = $this->getTranslator()
+                                   ->translate( $locale, 'locale' );
+                }
+            }
+
+            $label = $tag
+                ? $tag->name . ( isset( $locale ) ? ' (' . $locale . ')' : '' )
+                : '#' . $tagId;
+
             $groups[] = array(
-                'header'        => $tag ? $tag->name : '#' . $tagId,
+                'header'        => $label,
                 'markup'        => $this->renderBanners(
                     $name . '[' . $tagId . ']',
                     $banners

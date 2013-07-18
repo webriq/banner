@@ -335,7 +335,11 @@
                          .append(
                              $( "<div>" )
                                  .addClass( "banner-group-header" )
-                                 .text( tag.value )
+                                 .text( tag.value + (
+                                     tag.locale
+                                         ? " (" + js.core.translate( "locale.sub." + tag.locale ) + ")"
+                                         : ""
+                                 ) )
                          )
                          .append(
                              $( "<div>" )
