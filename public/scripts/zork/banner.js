@@ -39,6 +39,7 @@
         },
         sortableParams = {
             "axis": "y",
+            "items": "> .banner-group",
             "handle": ".banner-group-header",
             "stop": function( event, ui ) {
                 ui.item.children( ".banner-group-header" ).triggerHandler( "focusout" );
@@ -350,7 +351,9 @@
                            .sortable( "refresh" );
                     group.each( addGroup );
                     scrollTo( group );
-                    addTag.val( "" );
+                    setTimeout( function () {
+                        addTag.val( "" );
+                    }, 1 );
                 }
             } )
         );
