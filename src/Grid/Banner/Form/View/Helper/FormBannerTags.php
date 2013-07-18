@@ -42,7 +42,7 @@ class FormBannerTags extends FormBannerAbstract
         }
 
         $appService = $this->getAppServiceHelper();
-        $tagModel   = $appService( 'Grid\Tag\Model\tag' );
+        $tagModel   = $appService( 'Grid\Tag\Model\Tag\Model' );
         $attributes = $element->getAttributes();
         $value      = (array) $element->getValue();
         $groups     = array();
