@@ -44,6 +44,19 @@
                 ui.item.children( "legend" ).triggerHandler( "focusout" );
             }
         },
+        scrollTo = function ( element ) {
+            element = $( element );
+
+            if ( typeof element[0].scrollIntoView === "function" ) {
+                element[0].scrollIntoView();
+            } else {
+                var o = element.offset();
+                $( "html, body" ).animate( {
+                    "scrollTop": o.top - 20,
+                    "scrollLeft": o.left - 20
+                } );
+            }
+        },
         addButtons = function ( element, templateTranslations ) {
             var templates = element.find( "> .type-template" ),
                 addGroup  = function () {
@@ -108,16 +121,7 @@
                                         banner = $( banner );
                                         banners.append( banner );
                                         banner.each( addBanner );
-
-                                        if ( 'scrollIntoView' in banner[0] ) {
-                                            banner[0].scrollIntoView();
-                                        } else {
-                                            var o = banner.offset();
-                                            $( "html, body" ).animate( {
-                                                "scrollTop": o.top - 20,
-                                                "scrollLeft": o.left - 20
-                                            } );
-                                        }
+                                        scrollTo( banner );
                                     } )
                             )
                             .inputset()
@@ -175,11 +179,67 @@
         js.style( css );
         element = $( element );
         element.accordion( accordionParams );
-        var add = addButtons( element, {
-            "__locale__": function ( group ) {
-                return group.data( "locale" );
-            }
+
+        var locales     = element.data( "locales" ),
+            addLocale   = $( "<select>" ),
+            addDiv      = $( "<div>" ).addClass( "banner-group-add" ),
+            addGroup    = addButtons( element, {
+                "__locale__": function ( group ) {
+                    return group.data( "locale" );
+                }
+            } );
+
+        $.each( locales, function ( _, locale ) {
+            addLocale.append(
+                $( "<option>", {
+                    "value": locale,
+                    "text": js.core.translate( "locale.sub." + locale )
+                } )
+            );
         } );
+
+        element.prepend( addDiv );
+        addDiv.append( addLocale )
+              .append(
+                  $( "<button type='button'>" )
+                      .button( {
+                          "text": false,
+                          "icons": {
+                              "primary": "ui-icon-plus"
+                          }
+                      } )
+                      .click( function () {
+                          var locale = addLocale.val(),
+                              found  = element.find( "> .banner-group[data-locale='" + locale + "']" ),
+                              group;
+
+                          if ( found.length )
+                          {
+                              scrollTo( found );
+                              return;
+                          }
+
+                          addDiv.after( group = $( "<div>" ) );
+
+                          group.addClass( "banner-group" )
+                               .attr( "data-locale", locale )
+                               .data( "locale", locale )
+                               .append(
+                                   $( "<div>" )
+                                       .addClass( "banner-group-header" )
+                                       .text( addLocale.find( ":selected" ).text() )
+                               )
+                               .append(
+                                   $( "<div>" )
+                                       .addClass( "banner-group-banners" )
+                               );
+
+                          element.accordion( "refresh" );
+                          group.each( addGroup );
+                          scrollTo( group );
+                      } )
+              )
+              .inputset();
     };
 
     global.Zork.Banner.prototype.locales.isElementConstructor = true;

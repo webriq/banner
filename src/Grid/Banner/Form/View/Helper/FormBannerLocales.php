@@ -70,9 +70,9 @@ class FormBannerLocales extends FormBannerAbstract
         unset( $attributes['name'] );
 
         $appService = $this->getAppServiceHelper();
-        $attributes['data-locales'] = json_encode( array_filter(
+        $attributes['data-locales'] = json_encode( array_keys( array_filter(
             $appService( 'Locale' )->getAvailableFlags()
-        ) );
+        ) ) );
 
         return $this->renderBannerGroups(
             $name . '[__locale__]',
