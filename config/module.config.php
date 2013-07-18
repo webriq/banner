@@ -134,7 +134,7 @@ return array(
                 'tagBanners' => array(
                     'spec'      => array(
                         'type'  => 'Grid\Banner\Form\Element\TagBanners',
-                        'name'  => 'localeBanners',
+                        'name'  => 'tagBanners',
                         'options'   => array(
                             'label'     => 'banner.form.set.tagBanners',
                             'required'  => false,
