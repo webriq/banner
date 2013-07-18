@@ -1,21 +1,21 @@
 @charset "utf-8";
 
+.banner-group .banner-group-banners
+{
+    font-size: smaller;
+}
+
 .banner-group .banner-group-banners .banner
 {
     padding: 0em;
-    margin: 1em 0em;
+    margin: 0em -2.2em;
+    border-top: 1px solid #ccc;
 }
 
 .banner-group .banner-group-banners .banner dl
 {
     margin: 0px;
     padding: 0px;
-}
-
-.banner-group .banner-group-banners .banner ~ .banner
-{
-    border-top: 1px solid #000;
-    border-color: currentColor;
 }
 
 .banner-group .banner-group-banners .banner .banner-title
