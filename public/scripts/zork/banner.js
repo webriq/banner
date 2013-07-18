@@ -45,7 +45,7 @@
             }
         },
         addButtons = function ( element, isGlobal ) {
-            var templates = element.find( "> .type-templates" ),
+            var templates = element.find( "> .type-template" ),
                 addGroup  = function () {
                     var group    = $( this ),
                         header   = group.find( "> .banner-group-header:first" ),
@@ -54,7 +54,7 @@
 
                     if ( true || ! isGlobal ) { /// TODO: remove true
                         header.prepend(
-                            $( "<button>" )
+                            $( "<button type='button'>" )
                                 .css( "float", "right" )
                                 .button( {
                                     "text": false,
@@ -84,7 +84,7 @@
                             .addClass( "banner-add" )
                             .append( addType )
                             .append(
-                                $( "<button>" )
+                                $( "<button type='button'>" )
                                     .button( {
                                         "text": false,
                                         "icons": {
@@ -101,6 +101,7 @@
                                         );
                                     } )
                             )
+                            .inputset()
                     );
                 },
                 addBanner = function () {

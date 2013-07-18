@@ -20,7 +20,20 @@
 
 .banner-group .banner-group-banners .banner .banner-title
 {
+    padding: 1em 2em;
     font-size: larger;
     font-weight: bold;
-    padding-left: 2em;
+}
+
+.banner-group .banner-group-banners .banner-add button
+{
+    width: 1.5em;
+}
+
+.banner-group .banner-group-header button,
+.banner-group .banner-group-banners .banner .banner-title button
+{
+    width: 2em;
+    height: 2em;
+    margin: -0.3em;
 }
