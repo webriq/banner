@@ -3,7 +3,6 @@
 namespace Grid\Banner\Form\View\Helper;
 
 use Zend\Form\Exception;
-use Zork\Form\Element\Locale;
 use Zend\Form\ElementInterface;
 use Grid\Banner\Form\Element\LocaleBanners;
 
@@ -71,9 +70,9 @@ class FormBannerLocales extends FormBannerAbstract
         unset( $attributes['name'] );
 
         $appService = $this->getAppServiceHelper();
-        $attributes['data-locales'] = array_filter(
+        $attributes['data-locales'] = json_encode( array_filter(
             $appService( 'Locale' )->getAvailableFlags()
-        );
+        ) );
 
         return $this->renderBannerGroups(
             $name . '[__locale__]',
