@@ -4,7 +4,7 @@ namespace Grid\Banner\Form\View\Helper;
 
 use Zend\Form\Exception;
 use Zend\Form\ElementInterface;
-use Grid\Banner\Form\Element\LocaleBanners;
+use Grid\Banner\Form\Element\TagBanners;
 
 /**
  * FormBannerTags
@@ -24,10 +24,10 @@ class FormBannerTags extends FormBannerAbstract
      */
     public function render( ElementInterface $element )
     {
-        if ( ! $element instanceof LocaleBanners )
+        if ( ! $element instanceof TagBanners )
         {
             throw new Exception\InvalidArgumentException( sprintf(
-                '%s requires that the element is of type Grid\Banner\Form\Element\LocaleBanners',
+                '%s requires that the element is of type Grid\Banner\Form\Element\TagBanners',
                 __METHOD__
             ) );
         }
