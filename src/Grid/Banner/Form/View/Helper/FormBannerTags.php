@@ -4,20 +4,15 @@ namespace Grid\Banner\Form\View\Helper;
 
 use Zend\Form\Exception;
 use Zend\Form\ElementInterface;
-use Grid\Banner\Form\Element\GlobalBanners;
+use Grid\Banner\Form\Element\LocaleBanners;
 
 /**
- * FormBannerGlobals
+ * FormBannerTags
  *
  * @author David Pozsar <david.pozsar@megaweb.hu>
  */
-class FormBannerGlobals extends FormBannerAbstract
+class FormBannerTags extends FormBannerAbstract
 {
-
-    /**
-     * @var string
-     */
-    protected $label = 'banner.form.set.global';
 
     /**
      * Render a form checkbox-group element from the provided $element
@@ -29,10 +24,10 @@ class FormBannerGlobals extends FormBannerAbstract
      */
     public function render( ElementInterface $element )
     {
-        if ( ! $element instanceof GlobalBanners )
+        if ( ! $element instanceof LocaleBanners )
         {
             throw new Exception\InvalidArgumentException( sprintf(
-                '%s requires that the element is of type Grid\Banner\Form\Element\GlobalBanners',
+                '%s requires that the element is of type Grid\Banner\Form\Element\LocaleBanners',
                 __METHOD__
             ) );
         }
@@ -48,23 +43,28 @@ class FormBannerGlobals extends FormBannerAbstract
 
         $attributes = $element->getAttributes();
         $value      = (array) $element->getValue();
-        $label      = $this->label;
+        $groups     = array();
 
-        if ( $this->isTranslatorEnabled() && $this->hasTranslator() )
+        foreach ( $value as $tagId => $banners )
         {
-            $label = $this->getTranslator()
-                          ->translate( $label,
-                                       $this->getTranslatorTextDomain() );
+            $groups[] = array(
+                'header'        => $tagId, /// TODO: tag-name
+                'markup'        => $this->renderBanners(
+                    $name . '[' . $tagId . ']',
+                    $banners
+                ),
+                'attributes'    => array(
+                    'data-tagid'   => $tagId,
+                ),
+            );
         }
 
         unset( $attributes['name'] );
-        return $this->renderBannerGroups( $name, $attributes, array(
-            array(
-                'header'        => $label,
-                'markup'        => $this->renderBanners( $name, $value ),
-                'attributes'    => array(),
-            ),
-        ) );
+        return $this->renderBannerGroups(
+            $name . '[__tagid__]',
+            $attributes,
+            $groups
+        );
     }
 
 }

@@ -32,6 +32,8 @@ class Module extends ModuleAbstract
         return array(
             'invokables' => array(
                 'formBannerGlobals' => 'Grid\Banner\Form\View\Helper\FormBannerGlobals',
+                'formBannerLocales' => 'Grid\Banner\Form\View\Helper\FormBannerLocales',
+                'formBannerTags'    => 'Grid\Banner\Form\View\Helper\FormBannerTags',
             ),
         );
     }

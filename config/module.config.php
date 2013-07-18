@@ -131,6 +131,16 @@ return array(
                         ),
                     ),
                 ),
+                'localeBanners' => array(
+                    'spec'      => array(
+                        'type'  => 'Grid\Banner\Form\Element\LocaleBanners',
+                        'name'  => 'localeBanners',
+                        'options'   => array(
+                            'label'     => 'banner.form.set.localeBanners',
+                            'required'  => false,
+                        ),
+                    ),
+                ),
                 'globalBanners' => array(
                     'spec'      => array(
                         'type'  => 'Grid\Banner\Form\Element\GlobalBanners',

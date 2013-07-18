@@ -44,7 +44,7 @@
                 ui.item.children( "legend" ).triggerHandler( "focusout" );
             }
         },
-        addButtons = function ( element, isGlobal ) {
+        addButtons = function ( element, templateTranslations ) {
             var templates = element.find( "> .type-template" ),
                 addGroup  = function () {
                     var group    = $( this ),
@@ -52,7 +52,7 @@
                         banners  = group.find( "> .banner-group-banners:first" ),
                         addType  = $( "<select>" );
 
-                    if ( ! isGlobal ) {
+                    if ( templateTranslations ) {
                         header.prepend(
                             $( "<button type='button'>" )
                                 .css( "float", "right" )
@@ -92,13 +92,20 @@
                                         }
                                     } )
                                     .click( function () {
-                                        var type     = addType.val(),
+                                        var i, type  = addType.val(),
                                             template = templates.filter( "[data-type='" + type + "']:first" ),
-                                            banner   = $(
-                                                String( template.data( "template" ) )
-                                                    .replace( "__index__", newId() )
-                                            );
+                                            banner   = String( template.data( "template" ) )
+                                                           .replace( /__index__/g, newId() );
 
+                                        for ( i in templateTranslations )
+                                        {
+                                            banner = banner.replace(
+                                                new RegExp( i, "g" ),
+                                                templateTranslations[i]( group )
+                                            );
+                                        }
+
+                                        banner = $( banner );
                                         banners.append( banner );
                                         banner.each( addBanner );
 
@@ -153,9 +160,28 @@
         js.style( css );
         element = $( element );
         element.accordion( accordionParams );
-        addButtons( element, true );
+        addButtons( element, false );
     };
 
     global.Zork.Banner.prototype.globals.isElementConstructor = true;
+
+    /**
+     * Locale banners
+     *
+     * @memberOf Zork.Banner
+     */
+    global.Zork.Banner.prototype.locales = function ( element )
+    {
+        js.style( css );
+        element = $( element );
+        element.accordion( accordionParams );
+        var add = addButtons( element, {
+            "__locale__": function ( group ) {
+                return group.data( "locale" );
+            }
+        } );
+    };
+
+    global.Zork.Banner.prototype.locales.isElementConstructor = true;
 
 } ( window, jQuery, zork ) );
