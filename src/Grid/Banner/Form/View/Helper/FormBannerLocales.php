@@ -41,6 +41,7 @@ class FormBannerLocales extends FormBannerAbstract
             ) );
         }
 
+        $appService = $this->getAppServiceHelper();
         $attributes = $element->getAttributes();
         $value      = (array) $element->getValue();
         $groups     = array();
@@ -69,7 +70,6 @@ class FormBannerLocales extends FormBannerAbstract
 
         unset( $attributes['name'] );
 
-        $appService = $this->getAppServiceHelper();
         $attributes['data-locales'] = json_encode( array_keys( array_filter(
             $appService( 'Locale' )->getAvailableFlags()
         ) ) );

@@ -41,7 +41,7 @@
             "axis": "y",
             "handle": ".banner-group-header",
             "stop": function( event, ui ) {
-                ui.item.children( "legend" ).triggerHandler( "focusout" );
+                ui.item.children( ".banner-group-header" ).triggerHandler( "focusout" );
             }
         },
         scrollTo = function ( element ) {
@@ -58,6 +58,8 @@
             }
         },
         addButtons = function ( element, templateTranslations ) {
+            element.addClass( "banner-group-list" );
+
             var templates = element.find( "> .type-template" ),
                 addGroup  = function () {
                     var group    = $( this ),
@@ -283,5 +285,73 @@
     };
 
     global.Zork.Banner.prototype.locales.isElementConstructor = true;
+
+    /**
+     * Tag banners
+     *
+     * @memberOf Zork.Banner
+     */
+    global.Zork.Banner.prototype.tags = function ( element )
+    {
+        js.style( css );
+        element = $( element );
+        element.accordion( accordionParams )
+               .sortable( sortableParams );
+
+        var addTag      = $( '<input type="search">' ),
+            addDiv      = $( "<div>" ).addClass( "banner-group-add" ),
+            addGroup    = addButtons( element, {
+                "__locale__": function ( group ) {
+                    return group.data( "locale" );
+                }
+            } );
+
+        element.prepend( addDiv );
+        addDiv.append(
+            addTag.autocomplete( {
+                "source": "/app/" + js.core.defaultLocale + "/tag/search",
+                "minLength": 2,
+                "select": function ( event, ui ) {
+                    if ( ! ui || ! ui.item || ! ui.item.id )
+                    {
+                        return;
+                    }
+
+                    var tag    = ui.item,
+                        found  = element.find( "> .banner-group[data-tagid='" + tag.id + "']" ),
+                        group;
+
+                    if ( found.length )
+                    {
+                        scrollTo( found );
+                        return;
+                    }
+
+                    addDiv.after( group = $( "<div>" ) );
+
+                    group.addClass( "banner-group" )
+                         .attr( "data-tagid", tag.id )
+                         .data( "tagid", tag.id )
+                         .append(
+                             $( "<div>" )
+                                 .addClass( "banner-group-header" )
+                                 .text( tag.value )
+                         )
+                         .append(
+                             $( "<div>" )
+                                 .addClass( "banner-group-banners" )
+                         );
+
+                    element.accordion( "refresh" )
+                           .sortable( "refresh" );
+                    group.each( addGroup );
+                    scrollTo( group );
+                    addTag.val( "" );
+                }
+            } )
+        );
+    };
+
+    global.Zork.Banner.prototype.tags.isElementConstructor = true;
 
 } ( window, jQuery, zork ) );

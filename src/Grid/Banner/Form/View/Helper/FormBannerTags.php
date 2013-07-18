@@ -41,14 +41,18 @@ class FormBannerTags extends FormBannerAbstract
             ) );
         }
 
+        $appService = $this->getAppServiceHelper();
+        $tagModel   = $appService( 'Grid\Tag\Model\tag' );
         $attributes = $element->getAttributes();
         $value      = (array) $element->getValue();
         $groups     = array();
 
         foreach ( $value as $tagId => $banners )
         {
+            $tag = $tagModel->find( $tagId );
+
             $groups[] = array(
-                'header'        => $tagId, /// TODO: tag-name
+                'header'        => $tag ? $tag->name : '#' . $tagId,
                 'markup'        => $this->renderBanners(
                     $name . '[' . $tagId . ']',
                     $banners

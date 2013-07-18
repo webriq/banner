@@ -1,51 +1,51 @@
 @charset "utf-8";
 
-.banner-group .banner-group-banners
+.banner-group-list .banner-group .banner-group-banners
 {
     font-size: smaller;
 }
 
-.banner-group .banner-group-banners .banner
+.banner-group-list .banner-group .banner-group-banners .banner
 {
     padding: 0em;
     margin: 0em -2.2em;
     border-top: 1px solid #ccc;
 }
 
-.banner-group .banner-group-banners .banner dl
+.banner-group-list .banner-group .banner-group-banners .banner dl
 {
     margin: 0px;
     padding: 0px;
 }
 
-.banner-group .banner-group-banners .banner .banner-title
+.banner-group-list .banner-group .banner-group-banners .banner .banner-title
 {
     padding: 1em 2em;
     font-size: larger;
     font-weight: bold;
 }
 
-.banner-group .banner-group-banners .banner-add
+.banner-group-list .banner-group .banner-group-banners .banner-add
 {
     margin-bottom: 1em;
 }
 
-.banner-group .banner-group-add button,
-.banner-group .banner-group-banners .banner-add button
+.banner-group-list .banner-group-add button,
+.banner-group-list .banner-group .banner-group-banners .banner-add button
 {
     width: 1.8em;
 }
 
-.banner-group .banner-group-add button,
-.banner-group .banner-group-add select,
-.banner-group .banner-group-banners .banner-add button,
-.banner-group .banner-group-banners .banner-add select
+.banner-group-list .banner-group-add button,
+.banner-group-list .banner-group-add select,
+.banner-group-list .banner-group .banner-group-banners .banner-add button,
+.banner-group-list .banner-group .banner-group-banners .banner-add select
 {
     height: 1.8em;
 }
 
-.banner-group .banner-group-header button,
-.banner-group .banner-group-banners .banner .banner-title button
+.banner-group-list .banner-group .banner-group-header button,
+.banner-group-list .banner-group .banner-group-banners .banner .banner-title button
 {
     width: 2em;
     height: 2em;
