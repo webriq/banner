@@ -27,6 +27,7 @@
     global.Zork.prototype.banner = new global.Zork.Banner();
 
     var nextNewId = 0,
+        css = '/styles/modules/Banner/admin.css',
         newId = function () {
             return "n" + ( nextNewId++ );
         },
@@ -51,6 +52,7 @@
      */
     global.Zork.Banner.prototype.globals = function ( element )
     {
+        js.style( css );
         element = $( element );
         element.accordion( accordionParams );
     };

@@ -236,14 +236,31 @@ class FormBannerGlobals extends AbstractHelper
      */
     protected function renderTypeForm( $type, $name, array $data = array() )
     {
-        $helper = $this->getFormHelper();
-        $form   = $this->getBannerFormByType( $type );
+        $formHelper         = $this->getFormHelper();
+        $escapeHelper       = $this->getEscapeHtmlHelper();
+        $escapeAttrHelper   = $this->getEscapeHtmlAttrHelper();
+        $form               = $this->getBannerFormByType( $type );
+        $title              = 'banner.type.' . $type;
 
-        return $helper->renderFieldset(
-            $form->setData( $data )
-                 ->setWrapElements( true )
-                 ->setName( $name )
-                 ->prepare()
+        if ( $this->isTranslatorEnabled() && $this->hasTranslator() )
+        {
+            $title = $this->getTranslator()
+                          ->translate( $title, 'banner' );
+        }
+
+        return sprintf(
+            '<div class="banner banner-%s">' . PHP_EOL .
+                '<div class="banner-title">%s</div>' . PHP_EOL .
+                '%s' . PHP_EOL .
+            '</div>',
+            $escapeAttrHelper( $type ),
+            $escapeHelper( $title ),
+            $formHelper->renderFieldset(
+                $form->setData( $data )
+                     ->setWrapElements( true )
+                     ->setName( $name )
+                     ->prepare()
+            )
         );
     }
 
