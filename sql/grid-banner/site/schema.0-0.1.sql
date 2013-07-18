@@ -130,7 +130,8 @@ CREATE OR REPLACE FUNCTION "banner_random"( "p_set"         INTEGER,
                                             "p_language"    CHARACTER VARYING,
                                             "p_locale"      CHARACTER VARYING,
                                             "p_tags"        INTEGER[],
-                                            "p_blocked"     INTEGER[] DEFAULT ARRAY[]::INTEGER[] )
+                                            "p_blocked"     INTEGER[]           DEFAULT ARRAY[]::INTEGER[],
+                                            "p_mul"         DOUBLE PRECISION    DEFAULT 1 )
                    RETURNS INTEGER
                        SET search_path FROM CURRENT
                            STABLE
@@ -156,19 +157,19 @@ BEGIN
             ON "banner_x_set_by_tag"."setXTagId"    = "banner_set_x_tag"."id"
            AND "banner_set_x_tag"."setId"           = "p_set"
            AND "banner_set_x_tag"."tagId"           = ANY ( "p_tags" )
+     LEFT JOIN "tag"
+            ON "banner_set_x_tag"."tagId"           = "tag"."id"
     INNER JOIN "banner_set"
             ON "banner_set"."id" IN (
                    "banner_x_set_by_global"."setId",
                    "banner_x_set_by_locale"."setId",
                    "banner_set_x_tag"."setId"
                )
-      ORDER BY CASE
-                   WHEN "banner"."id" = ANY ( "p_blocked" ) THEN 1
-                   ELSE 0
-               END ASC,
-               CASE
+         WHERE "tag"."locale" IS NULL
+            OR "tag"."locale" IN ( "p_language", "p_locale" )
+      ORDER BY "p_mul" * CASE
                    WHEN "banner_set_x_tag"."priority" IS NOT NULL
-                        THEN 3 + "banner_set_x_tag"."priority"
+                        THEN "p_mul" * ( 3 + "banner_set_x_tag"."priority" )
                    WHEN "banner_x_set_by_locale"."setId" IS NOT NULL
                         THEN CASE "banner_x_set_by_locale"."locale"
                                  WHEN "p_locale"   THEN 2
@@ -177,9 +178,11 @@ BEGIN
                              END
                    WHEN "banner_x_set_by_global"."setId" IS NOT NULL
                         THEN 0
-                   ELSE -1
-               END DESC,
-               RANDOM() ASC
+                   ELSE 0
+               END - CASE
+                   WHEN "banner"."id" = ANY ( "p_blocked" ) THEN 1
+                   ELSE 0
+               END + RANDOM() DESC
          LIMIT 1;
 
     RETURN "v_result";

@@ -11,7 +11,8 @@ DROP FUNCTION "banner_random"( INTEGER,
                                CHARACTER VARYING,
                                CHARACTER VARYING,
                                INTEGER[],
-                               INTEGER[] ) CASCADE;
+                               INTEGER[],
+                               DOUBLE PRECISION ) CASCADE;
 
 -- drop tables
 

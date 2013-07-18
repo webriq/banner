@@ -166,7 +166,8 @@ class Banner extends AbstractLeaf
         return $bannerMapper->findRandomBySetIdTagIdsLocale(
             $this->setId,
             $locale,
-            $tagIds
+            $tagIds,
+            1 /// TODO: set mul by mode
         );
     }
 

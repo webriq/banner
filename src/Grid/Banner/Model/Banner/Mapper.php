@@ -367,9 +367,10 @@ class Mapper extends ReadWriteMapperAbstract
      * @param   int     $setId
      * @param   string  $locale
      * @param   array   $tagIds
+     * @param   float   $mul
      * @return  \Grid\Banner\Model\Banner\Structure
      */
-    public function findRandomBySetIdTagIdsLocale( $setId, $locale, array $tagIds = array() )
+    public function findRandomBySetIdTagIdsLocale( $setId, $locale, array $tagIds = array(), $mul = 1 )
     {
         $setId      = (int) $setId;
         $locale     = (string) $locale;
@@ -391,8 +392,10 @@ class Mapper extends ReadWriteMapperAbstract
                         new Expression\ArrayLiteral( $blockedIds ),
                         Expression\Cast::CAST_INTEGER_ARRAY
                     ),
+                    (float) $mul
                 ),
                 array(
+                    Expression\FunctionCall::TYPE_VALUE,
                     Expression\FunctionCall::TYPE_VALUE,
                     Expression\FunctionCall::TYPE_VALUE,
                     Expression\FunctionCall::TYPE_VALUE,
