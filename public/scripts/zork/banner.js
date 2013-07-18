@@ -180,7 +180,10 @@
         element = $( element );
         element.accordion( accordionParams );
 
-        var locales     = element.data( "locales" ),
+        var lang,
+            langgrp,
+            locales     = element.data( "locales" ),
+            localegrp   = {},
             addLocale   = $( "<select>" ),
             addDiv      = $( "<div>" ).addClass( "banner-group-add" ),
             addGroup    = addButtons( element, {
@@ -190,13 +193,50 @@
             } );
 
         $.each( locales, function ( _, locale ) {
-            addLocale.append(
-                $( "<option>", {
-                    "value": locale,
-                    "text": js.core.translate( "locale.sub." + locale )
-                } )
-            );
+            var lang = locale.substr( 0, 2 );
+
+            if ( ! ( lang in localegrp ) )
+            {
+                localegrp[lang] = [];
+            }
+
+            localegrp[lang].push( locale );
         } );
+
+        for ( lang in localegrp )
+        {
+            switch ( localegrp[lang].length )
+            {
+                case 0:
+                    break;
+
+                case 1:
+                    addLocale.append(
+                        $( "<option>", {
+                            "value": localegrp[lang][0],
+                            "text": js.core.translate( "locale.sub." + localegrp[lang][0] )
+                        } )
+                    );
+                    break;
+
+                default:
+                    addLocale.append(
+                        langgrp = $( "<optgroup>", {
+                            "label": js.core.translate( "locale.main." + lang )
+                        } )
+                    );
+
+                    $.each( localegrp[lang], function ( _, locale ) {
+                        langgrp.append(
+                            $( "<option>", {
+                                "value": locale,
+                                "text": js.core.translate( "locale.sub." + locale )
+                            } )
+                        );
+                    } );
+                    break;
+            }
+        }
 
         element.prepend( addDiv );
         addDiv.append( addLocale )
