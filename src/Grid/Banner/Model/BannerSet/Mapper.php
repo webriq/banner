@@ -105,19 +105,13 @@ class Mapper extends ReadWriteMapperAbstract
 
         foreach ( $result as $row )
         {
-            $tagIds[$ids[] = (int) $row['bannerId']] = $row['tagId'];
+            $return[$tagIds[$ids[] = (int) $row['bannerId']] = $row['tagId']] = array();
         }
 
         foreach ( $this->getBannerMapper()
                        ->findAllByIds( $ids ) as $banner )
         {
             $tagId = $tagIds[$banner->id];
-
-            if ( empty( $return[$tagId] ) )
-            {
-                $return[$tagId] = array();
-            }
-
             $return[$tagId][] = $banner;
         }
 
