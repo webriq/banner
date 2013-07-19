@@ -18,7 +18,7 @@ CREATE TABLE "banner_property"
 (
     "bannerId"  INTEGER             NOT NULL,
     "name"      CHARACTER VARYING   NOT NULL,
-    "value"     CHARACTER VARYING   NOT NULL,
+    "value"     CHARACTER VARYING   NULL,
 
     PRIMARY KEY ( "bannerId", "name" ),
     FOREIGN KEY ( "bannerId" )
