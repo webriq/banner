@@ -14,6 +14,8 @@ return array(
     'banner.form.image.height' => 'Height',
     'banner.form.image.linkTarget' => 'Link target',
     'banner.form.image.linkTo' => 'Link to',
+    'banner.form.paragraph.setId' => 'Set',
+    'banner.form.paragraph.priorityMul' => 'Mode',
     'banner.form.set.name' => 'Name',
     'banner.form.set.create' => 'Create a banner set',
     'banner.form.set.edit.%s' => 'Edit banner set: %s',

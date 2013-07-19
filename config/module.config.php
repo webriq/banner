@@ -107,10 +107,23 @@ return array(
                                     'type'  => 'Zork\Form\Element\SelectModel',
                                     'name'  => 'setId',
                                     'options'   => array(
-                                        'label'     => 'paragraph.form.banner.set',
+                                        'label'     => 'banner.form.paragraph.setId',
                                         'required'  => true,
                                         'model'     => 'Grid\Banner\Model\BannerSet\Model',
                                         'method'    => 'findOptions',
+                                    ),
+                                ),
+                            ),
+                            'priorityMul' => array(
+                                'spec' => array(
+                                    'type'  => 'Zork\Form\Element\Range',
+                                    'name'  => 'priorityMul',
+                                    'options'   => array(
+                                        'label'     => 'banner.form.paragraph.priorityMul',
+                                        'required'  => true,
+                                    ),
+                                    'attributes'    => array(
+                                        'data-js-type'  => 'js.banner.priorityMul',
                                     ),
                                 ),
                             ),

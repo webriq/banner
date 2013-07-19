@@ -415,4 +415,16 @@
 
     global.Zork.Banner.prototype.tags.isElementConstructor = true;
 
+    /**
+     * Priority multiplier
+     *
+     * @memberOf Zork.Banner
+     */
+    global.Zork.Banner.prototype.priorityMul = function ( element )
+    {
+        element = $( element );
+    };
+
+    global.Zork.Banner.prototype.priorityMul.isElementConstructor = true;
+
 } ( window, jQuery, zork ) );

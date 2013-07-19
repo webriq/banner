@@ -43,6 +43,13 @@ class Banner extends AbstractLeaf
     protected $setId;
 
     /**
+     * Priority multiplier
+     *
+     * @var float
+     */
+    protected $priorityMul = 1;
+
+    /**
      * Selected banner-set structure
      *
      * @var \Grid\Banner\Model\BannerSet\Structure
@@ -139,6 +146,25 @@ class Banner extends AbstractLeaf
     }
 
     /**
+     * Set priority multiplier
+     *
+     * @param   float $value
+     * @return  \Grid\Banner\Model\Paragraph\Structure\Banner
+     */
+    public function setPriorityMul( $value )
+    {
+        $value = (float) $value;
+
+        if ( $value > 1 ) // percent mode
+        {
+            $value /= 100;
+        }
+
+        $this->priorityMul = max( 0, min( 1, $value ) );
+        return $this;
+    }
+
+    /**
      * Find banner
      *
      * @return  \Grid\Banner\Model\Banner\Structure
@@ -167,7 +193,7 @@ class Banner extends AbstractLeaf
             $this->setId,
             $locale,
             $tagIds,
-            1 /// TODO: set mul by mode
+            $this->priorityMul
         );
     }
 
