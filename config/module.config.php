@@ -121,12 +121,12 @@ return array(
                                     'options'   => array(
                                         'label'     => 'banner.form.paragraph.priorityMul',
                                         'required'  => true,
-                                        'min'       => 0,
-                                        'max'       => 1,
-                                        'step'      => 0.01,
                                     ),
                                     'attributes'    => array(
                                         'data-js-type'  => 'js.banner.priorityMul',
+                                        'min'           => 0,
+                                        'max'           => 1,
+                                        'step'          => 0.01,
                                     ),
                                 ),
                             ),
@@ -301,6 +301,8 @@ return array(
                         'options'   => array(
                             'label'     => 'banner.form.image.width',
                             'required'  => false,
+                        ),
+                        'attributes'    => array(
                             'min'       => 50,
                             'max'       => 1000,
                         ),
@@ -313,6 +315,8 @@ return array(
                         'options'   => array(
                             'label'     => 'banner.form.image.height',
                             'required'  => false,
+                        ),
+                        'attributes'    => array(
                             'min'       => 50,
                             'max'       => 1000,
                         ),
@@ -415,11 +419,11 @@ return array(
                         'options'   => array(
                             'label'     => 'banner.form.image.width',
                             'required'  => true,
-                            'min'       => 50,
-                            'max'       => 1000,
                         ),
                         'attributes'    => array(
                             'value'     => 100,
+                            'min'       => 50,
+                            'max'       => 1000,
                         ),
                     ),
                 ),
@@ -430,11 +434,11 @@ return array(
                         'options'   => array(
                             'label'     => 'banner.form.image.height',
                             'required'  => true,
-                            'min'       => 50,
-                            'max'       => 1000,
                         ),
                         'attributes'    => array(
                             'value'     => 100,
+                            'min'       => 50,
+                            'max'       => 1000,
                         ),
                     ),
                 ),
