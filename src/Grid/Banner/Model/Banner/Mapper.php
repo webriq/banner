@@ -5,6 +5,7 @@ namespace Grid\Banner\Model\Banner;
 use Locale;
 use Zend\Db\Sql;
 use Zork\Db\Sql\Expression;
+use Zend\Stdlib\ArrayUtils;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zork\Model\Mapper\DbAware\ReadWriteMapperAbstract;
 use Zork\Session\ContainerAwareTrait as SessionContainerAwareTrait;
