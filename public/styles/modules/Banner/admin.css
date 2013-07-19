@@ -36,6 +36,7 @@
     width: 1.8em;
 }
 
+.banner-group-list .banner-group-add input,
 .banner-group-list .banner-group-add button,
 .banner-group-list .banner-group-add select,
 .banner-group-list .banner-group .banner-group-banners .banner-add button,

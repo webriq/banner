@@ -27,7 +27,7 @@
     global.Zork.prototype.banner = new global.Zork.Banner();
 
     var nextNewId = 0,
-        css = '/styles/modules/Banner/admin.css',
+        css = "/styles/modules/Banner/admin.css",
         newId = function () {
             return "n" + ( nextNewId++ );
         },
@@ -299,64 +299,109 @@
         element.accordion( accordionParams )
                .sortable( sortableParams );
 
-        var addTag      = $( '<input type="search">' ),
+        var addItem,
+            addTag      = $( '<input type="search">' ),
             addDiv      = $( "<div>" ).addClass( "banner-group-add" ),
             addGroup    = addButtons( element, {
                 "__tagid__": function ( group ) {
                     return group.data( "tagid" );
                 }
-            } );
+            } ),
+            add = function ( tag ) {
+                var found  = element.find( "> .banner-group[data-tagid='" + tag.id + "']" ),
+                    group;
+
+                if ( found.length )
+                {
+                    scrollTo( found );
+                    return;
+                }
+
+                addDiv.after( group = $( "<div>" ) );
+
+                group.addClass( "banner-group" )
+                     .attr( "data-tagid", tag.id )
+                     .data( "tagid", tag.id )
+                     .append(
+                         $( "<div>" )
+                             .addClass( "banner-group-header" )
+                             .text( tag.value + (
+                                 tag.locale
+                                     ? " (" + js.core.translate( "locale.sub." + tag.locale ) + ")"
+                                     : ""
+                             ) )
+                     )
+                     .append(
+                         $( "<div>" )
+                             .addClass( "banner-group-banners" )
+                     );
+
+                element.accordion( "refresh" )
+                       .sortable( "refresh" );
+                group.each( addGroup );
+                scrollTo( group );
+
+                addItem = null;
+                setTimeout( function () {
+                    addTag.val( "" );
+                }, 1 );
+            };
 
         element.prepend( addDiv );
         addDiv.append(
-            addTag.autocomplete( {
-                "source": "/app/" + js.core.defaultLocale + "/tag/search",
-                "minLength": 2,
-                "select": function ( event, ui ) {
-                    if ( ! ui || ! ui.item || ! ui.item.id )
-                    {
-                        return;
-                    }
+                  addTag.autocomplete( {
+                      "source": "/app/" + js.core.defaultLocale + "/tag/search",
+                      "minLength": 2,
+                      "select": function ( event, ui ) {
+                          if ( ! ui || ! ui.item || ! ui.item.id )
+                          {
+                              return;
+                          }
 
-                    var tag    = ui.item,
-                        found  = element.find( "> .banner-group[data-tagid='" + tag.id + "']" ),
-                        group;
+                          add( ui.item );
 
-                    if ( found.length )
-                    {
-                        scrollTo( found );
-                        return;
-                    }
+                          setTimeout( function () {
+                              addTag.val( "" );
+                          }, 1 );
+                      },
+                      "response": function ( event, ui ) {
+                          addItem = null;
 
-                    addDiv.after( group = $( "<div>" ) );
+                          if ( ! ui || ! ui.content || ! ui.content.length )
+                          {
+                              return;
+                          }
 
-                    group.addClass( "banner-group" )
-                         .attr( "data-tagid", tag.id )
-                         .data( "tagid", tag.id )
-                         .append(
-                             $( "<div>" )
-                                 .addClass( "banner-group-header" )
-                                 .text( tag.value + (
-                                     tag.locale
-                                         ? " (" + js.core.translate( "locale.sub." + tag.locale ) + ")"
-                                         : ""
-                                 ) )
-                         )
-                         .append(
-                             $( "<div>" )
-                                 .addClass( "banner-group-banners" )
-                         );
+                          var val = addTag.val();
 
-                    element.accordion( "refresh" )
-                           .sortable( "refresh" );
-                    group.each( addGroup );
-                    scrollTo( group );
-                    setTimeout( function () {
-                        addTag.val( "" );
-                    }, 1 );
-                }
-            } )
-        );
+                          $.each( ui.content, function ( _, item ) {
+                              if ( item.value === val )
+                              {
+                                  addItem = item;
+                                  return false;
+                              }
+                          } );
+                      }
+                  } )
+              )
+              .append(
+                  $( "<button type='button'>" )
+                      .button( {
+                          "text": false,
+                          "icons": {
+                              "primary": "ui-icon-plus"
+                          }
+                      } )
+                      .click( function () {
+                          if ( ! addItem )
+                          {
+                              return;
+                          }
+
+                          add( addItem );
+                      } )
+              )
+              .inputset();
     };
 
     global.Zork.Banner.prototype.tags.isElementConstructor = true;
