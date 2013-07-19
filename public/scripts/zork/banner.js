@@ -35,7 +35,16 @@
             "active": false,
             "collapsible": true,
             "heightStyle": "content",
-            "header": "> .banner-group > .banner-group-header"
+            "header": "> .banner-group > .banner-group-header",
+            "activate": function () {
+                if ( false !== $( this ).accordion( "option", "active" ) )
+                {
+                    $( this ).closest( "form" )
+                             .find( ":ui-accordion" )
+                             .not( this )
+                             .accordion( "option", "active", false );
+                }
+            }
         },
         sortableParams = {
             "axis": "y",
