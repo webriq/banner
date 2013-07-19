@@ -299,7 +299,7 @@ class Mapper extends ReadWriteMapperAbstract
         $sqlx   = $this->sql( $this->getTableInSchema( 'banner_set_x_tag' ) );
         $sql    = $this->sql( $this->getTableInSchema( 'banner_x_set_by_tag' ) );
 
-        foreach ( array_reverse( $banners ) as $tagId => $bannerList )
+        foreach ( array_reverse( $banners, true ) as $tagId => $bannerList )
         {
             $update = $sqlx->update()
                            ->set( array(
