@@ -121,6 +121,9 @@ return array(
                                     'options'   => array(
                                         'label'     => 'banner.form.paragraph.priorityMul',
                                         'required'  => true,
+                                        'min'       => 0,
+                                        'max'       => 1,
+                                        'step'      => 0.01,
                                     ),
                                     'attributes'    => array(
                                         'data-js-type'  => 'js.banner.priorityMul',
