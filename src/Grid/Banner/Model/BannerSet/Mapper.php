@@ -402,6 +402,16 @@ class Mapper extends ReadWriteMapperAbstract
                         ->execute()
                         ->getAffectedRows();
 
+        $delete = $sql->delete()
+                      ->where( array(
+                          new Sql\Predicate\In( 'setXTagId', $xids ),
+                          new Sql\Predicate\NotIn( 'bannerId', $ids ),
+                      ) );
+
+        $result += $sql->prepareStatementForSqlObject( $delete )
+                       ->execute()
+                       ->getAffectedRows();
+
         return $result;
     }
 
