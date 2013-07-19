@@ -2,6 +2,7 @@
 
 namespace Grid\Banner\Model\BannerSet;
 
+use Zend\Db\Sql;
 use Zork\Model\Mapper\DbAware\ReadWriteMapperAbstract;
 use Grid\Banner\Model\Banner\Mapper as BannerMapper;
 
@@ -75,9 +76,7 @@ class Mapper extends ReadWriteMapperAbstract
      */
     public function findTagBanners( $setId )
     {
-        $sql = $this->sql(
-            $this->getTableInSchema( 'banner_x_set_by_tag' )
-        );
+        $sql = $this->sql( $this->getTableInSchema( 'banner_x_set_by_tag' ) );
 
         $select = $sql->select()
                       ->columns( array( 'bannerId' ) )
@@ -92,9 +91,8 @@ class Mapper extends ReadWriteMapperAbstract
                           'bannerId'    => 'ASC',
                       ) );
 
-        $result = $this->sql()
-                       ->prepareStatementForSqlObject( $select )
-                       ->execute();
+        $result = $sql->prepareStatementForSqlObject( $select )
+                      ->execute();
 
         if ( $result->getAffectedRows() < 1 )
         {
@@ -134,9 +132,7 @@ class Mapper extends ReadWriteMapperAbstract
      */
     public function findLocaleBanners( $setId )
     {
-        $sql = $this->sql(
-            $this->getTableInSchema( 'banner_x_set_by_locale' )
-        );
+        $sql = $this->sql( $this->getTableInSchema( 'banner_x_set_by_locale' ) );
 
         $select = $sql->select()
                       ->columns( array( 'bannerId', 'locale' ) )
@@ -148,9 +144,8 @@ class Mapper extends ReadWriteMapperAbstract
                           'bannerId'    => 'ASC',
                       ) );
 
-        $result = $this->sql()
-                       ->prepareStatementForSqlObject( $select )
-                       ->execute();
+        $result = $sql->prepareStatementForSqlObject( $select )
+                      ->execute();
 
         if ( $result->getAffectedRows() < 1 )
         {
@@ -190,9 +185,7 @@ class Mapper extends ReadWriteMapperAbstract
      */
     public function findGlobalBanners( $setId )
     {
-        $sql = $this->sql(
-            $this->getTableInSchema( 'banner_x_set_by_global' )
-        );
+        $sql = $this->sql( $this->getTableInSchema( 'banner_x_set_by_global' ) );
 
         $select = $sql->select()
                       ->columns( array( 'bannerId' ) )
@@ -203,9 +196,8 @@ class Mapper extends ReadWriteMapperAbstract
                           'bannerId'    => 'ASC',
                       ) );
 
-        $result = $this->sql()
-                       ->prepareStatementForSqlObject( $select )
-                       ->execute();
+        $result = $sql->prepareStatementForSqlObject( $select )
+                      ->execute();
 
         if ( $result->getAffectedRows() < 1 )
         {
@@ -221,6 +213,329 @@ class Mapper extends ReadWriteMapperAbstract
 
         return $this->getBannerMapper()
                     ->findAllByIds( $ids );
+    }
+
+    /**
+     * Save element structure to datasource
+     *
+     * @param   \Grid\Banner\Model\Banner\Structure\ProxyAbstract $structure
+     * @return  int Number of affected rows
+     */
+    public function save( & $structure )
+    {
+        if ( $structure instanceof Structure )
+        {
+            $data = $structure->toArray();
+        }
+        else
+        {
+            $data = (array) $structure;
+        }
+
+        if ( isset( $data['tagBanners'] ) )
+        {
+            $tagBanners = (array) $data['tagBanners'];
+            unset( $data['tagBanners'] );
+        }
+
+        if ( isset( $data['localeBanners'] ) )
+        {
+            $localeBanners = (array) $data['localeBanners'];
+            unset( $data['localeBanners'] );
+        }
+
+        if ( isset( $data['globalBanners'] ) )
+        {
+            $globalBanners = (array) $data['globalBanners'];
+            unset( $data['globalBanners'] );
+        }
+
+        $result = parent::save( $data );
+
+        if ( $result > 0 )
+        {
+            if ( empty( $structure->id ) )
+            {
+                $structure->setOption( 'id', $id = $data['id'] );
+            }
+            else
+            {
+                $id = $structure->id;
+            }
+
+            if ( isset( $tagBanners ) )
+            {
+                $result += $this->saveTagBanners( $id, $tagBanners );
+            }
+
+            if ( isset( $localeBanners ) )
+            {
+                $result += $this->saveLocaleBanners( $id, $localeBanners );
+            }
+
+            if ( isset( $globalBanners ) )
+            {
+                $result += $this->saveGlobalBanners( $id, $globalBanners );
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Save tag banners
+     *
+     * @param   int     $setId
+     * @param   array   $banners
+     * @return  int
+     */
+    protected function saveTagBanners( $setId, array $banners )
+    {
+        $result = 0;
+        $prio   = 1;
+        $ids    = array();
+        $xids   = array();
+        $mapper = $this->getBannerMapper();
+        $sqlx   = $this->sql( $this->getTableInSchema( 'banner_set_x_tag' ) );
+        $sql    = $this->sql( $this->getTableInSchema( 'banner_x_set_by_tag' ) );
+
+        foreach ( array_reverse( $banners ) as $tagId => $bannerList )
+        {
+            $update = $sqlx->update()
+                           ->set( array(
+                               'priority'    => $prio,
+                           ) )
+                           ->where( array(
+                               'setId'       => $setId,
+                               'tagId'       => $tagId,
+                           ) );
+
+            $rows = $sqlx->prepareStatementForSqlObject( $update )
+                         ->execute()
+                         ->getAffectedRows();
+
+            if ( $rows < 1 )
+            {
+                $insert = $sqlx->insert()
+                               ->values( array(
+                                   'setId'      => $setId,
+                                   'tagId'      => $tagId,
+                                   'priority'   => $prio,
+                               ) );
+
+                $rows = $sqlx->prepareStatementForSqlObject( $insert )
+                             ->execute()
+                             ->getAffectedRows();
+            }
+
+            $result += $rows;
+            $prio++;
+
+            $select = $sqlx->select()
+                           ->columns( array( 'id' ) )
+                           ->where( array(
+                               'setId'      => $setId,
+                               'tagId'      => $tagId,
+                           ) );
+
+            $query = $sqlx->prepareStatementForSqlObject( $select )
+                          ->execute();
+
+            $setXTagId = null;
+
+            foreach ( $query as $row )
+            {
+                $setXTagId = $row['id'];
+            }
+
+            if ( null === $setXTagId )
+            {
+                continue;
+            }
+
+            $xids[] = $setXTagId;
+
+            foreach ( $bannerList as $banner )
+            {
+                $rows = $mapper->save( $banner );
+
+                if ( $rows > 0 )
+                {
+                    $result += $rows;
+                    $id = $ids[] = $banner->id;
+
+                    $select = $sql->select()
+                                  ->where( array(
+                                      'bannerId'    => $id,
+                                      'setXTagId'   => $setXTagId,
+                                  ) );
+
+                    $rows = $sql->prepareStatementForSqlObject( $select )
+                                ->execute()
+                                ->getAffectedRows();
+
+                    if ( $rows < 1 )
+                    {
+                        $insert = $sql->insert()
+                                      ->values( array(
+                                          'bannerId'    => $id,
+                                          'setXTagId'   => $setXTagId,
+                                      ) );
+
+                        $rows = $sql->prepareStatementForSqlObject( $insert )
+                                    ->execute()
+                                    ->getAffectedRows();
+                    }
+
+                    $result += $rows;
+                }
+            }
+        }
+
+        $delete = $sqlx->delete()
+                       ->where( array(
+                           'setId'   => $setId,
+                           new Sql\Predicate\NotIn( 'id', $xids ),
+                       ) );
+
+        $result += $sqlx->prepareStatementForSqlObject( $delete )
+                        ->execute()
+                        ->getAffectedRows();
+
+        return $result;
+    }
+
+    /**
+     * Save locale banners
+     *
+     * @param   int     $setId
+     * @param   array   $banners
+     * @return  int
+     */
+    protected function saveLocaleBanners( $setId, array $banners )
+    {
+        $result = 0;
+        $ids    = array();
+        $mapper = $this->getBannerMapper();
+        $sql    = $this->sql( $this->getTableInSchema( 'banner_x_set_by_locale' ) );
+
+        foreach ( $banners as $locale => $bannerList )
+        {
+            foreach ( $bannerList as $banner )
+            {
+                $rows = $mapper->save( $banner );
+
+                if ( $rows > 0 )
+                {
+                    $result += $rows;
+                    $id = $ids[] = $banner->id;
+
+                    $update = $sql->update()
+                                  ->set( array(
+                                      'locale'      => $locale,
+                                  ) )
+                                  ->where( array(
+                                      'bannerId'    => $id,
+                                      'setId'       => $setId,
+                                  ) );
+
+                    $rows = $sql->prepareStatementForSqlObject( $update )
+                                ->execute()
+                                ->getAffectedRows();
+
+                    if ( $rows < 1 )
+                    {
+                        $insert = $sql->insert()
+                                      ->values( array(
+                                          'bannerId'    => $id,
+                                          'setId'       => $setId,
+                                          'locale'      => $locale,
+                                      ) );
+
+                        $rows = $sql->prepareStatementForSqlObject( $insert )
+                                    ->execute()
+                                    ->getAffectedRows();
+                    }
+
+                    $result += $rows;
+                }
+            }
+        }
+
+        $delete = $sql->delete()
+                      ->where( array(
+                          'setId'   => $setId,
+                          new Sql\Predicate\NotIn( 'bannerId', $ids ),
+                      ) );
+
+        $result += $sql->prepareStatementForSqlObject( $delete )
+                       ->execute()
+                       ->getAffectedRows();
+
+        return $result;
+    }
+
+    /**
+     * Save global banners
+     *
+     * @param   int     $setId
+     * @param   array   $banners
+     * @return  int
+     */
+    protected function saveGlobalBanners( $setId, array $banners )
+    {
+        $result = 0;
+        $ids    = array();
+        $mapper = $this->getBannerMapper();
+        $sql    = $this->sql( $this->getTableInSchema( 'banner_x_set_by_global' ) );
+
+        foreach ( $banners as $banner )
+        {
+            $rows = $mapper->save( $banner );
+
+            if ( $rows > 0 )
+            {
+                $result += $rows;
+                $id = $ids[] = $banner->id;
+
+                $select = $sql->select()
+                              ->where( array(
+                                  'bannerId'    => $id,
+                                  'setId'       => $setId,
+                              ) );
+
+                $rows = $sql->prepareStatementForSqlObject( $select )
+                            ->execute()
+                            ->getAffectedRows();
+
+                if ( $rows < 1 )
+                {
+                    $insert = $sql->insert()
+                                  ->values( array(
+                                      'bannerId'    => $id,
+                                      'setId'       => $setId,
+                                  ) );
+
+                    $rows = $sql->prepareStatementForSqlObject( $insert )
+                                ->execute()
+                                ->getAffectedRows();
+                }
+
+                $result += $rows;
+            }
+        }
+
+        $delete = $sql->delete()
+                      ->where( array(
+                          'setId'   => $setId,
+                          new Sql\Predicate\NotIn( 'bannerId', $ids ),
+                      ) );
+
+        $result += $sql->prepareStatementForSqlObject( $delete )
+                       ->execute()
+                       ->getAffectedRows();
+
+        return $result;
     }
 
 }

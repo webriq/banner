@@ -86,7 +86,7 @@ class ExternalImage extends ProxyAbstract
      */
     public function setAlternate( $alternate )
     {
-        $this->alt = (string) $alternate;
+        $this->alternate = (string) $alternate;
         return $this;
     }
 

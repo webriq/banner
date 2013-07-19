@@ -78,7 +78,17 @@ abstract class ProxyAbstract
     {
         if ( 'id' == $key )
         {
-            $this->proxyBase->setOption( $key, $value );
+            if ( empty( $this->proxyBase ) )
+            {
+                $this->proxyBase = new ProxyBase( array(
+                    'id' => $value,
+                ) );
+            }
+            else
+            {
+                $this->proxyBase->setOption( $key, $value );
+            }
+
             return $this;
         }
 
