@@ -423,6 +423,131 @@
     global.Zork.Banner.prototype.priorityMul = function ( element )
     {
         element = $( element );
+
+        var dragging    = false,
+            native      = element[0].type === "range",
+            uiSlider    = native ? null : $( "+ :ui-slider", element ),
+            container   = $( "<div>" ).css( "display", "inline-block" ),
+            select1     = $( "<input type='radio'>" ),
+            select0     = $( "<input type='radio'>" ),
+            selectx     = $( "<input type='radio'>" ),
+            inputLabel  = $( "<label>" ),
+            set         = function ( value ) {
+                if ( ! native && uiSlider ) {
+                    uiSlider.slider( "value", value );
+                }
+
+                element.val( value )
+                       .trigger( "change" );
+            },
+            change      = function () {
+                if ( dragging ) {
+                    return;
+                }
+
+                switch ( element.val() ) {
+                    case "":
+                    case "0":
+                    case "0.0":
+                    case "0.00":
+                        select0.prop( "checked", true  );
+                        select1.prop( "checked", false );
+                        selectx.prop( "checked", false );
+                        inputLabel.css( "visibility", "hidden" );
+                        break;
+
+                    case "1":
+                    case "1.0":
+                    case "1.00":
+                        select0.prop( "checked", false );
+                        select1.prop( "checked", true  );
+                        selectx.prop( "checked", false );
+                        inputLabel.css( "visibility", "hidden" );
+                        break;
+
+                    default:
+                        select0.prop( "checked", false );
+                        select1.prop( "checked", false );
+                        selectx.prop( "checked", true  );
+                        inputLabel.css( "visibility", "" );
+                        break;
+                }
+            };
+
+        element.before( container );
+
+        container.append(
+            $( "<label>" )
+                .text( " " + js.core.translate( "banner.priorityMul.select1" ) )
+                .prepend( select1 )
+                .css( "display", "block" )
+        );
+
+        container.append(
+            $( "<label>" )
+                .text( " " + js.core.translate( "banner.priorityMul.select0" ) )
+                .prepend( select0 )
+                .css( "display", "block" )
+        );
+
+        container.append(
+            $( "<label>" )
+                .text( " " + js.core.translate( "banner.priorityMul.selectx" ) )
+                .prepend( selectx )
+                .css( "display", "block" )
+        );
+
+        container.append(
+            inputLabel.prepend( element )
+                      .css( "display", "block" )
+        );
+
+        if ( uiSlider ) {
+            element.after( uiSlider );
+        }
+
+        inputLabel.prepend(
+            $( "<span>", {
+                "title": "0",
+                "text": js.core.translate( "banner.priorityMul.select0" )
+            } )
+        );
+
+        inputLabel.append(
+            $( "<span>", {
+                "title": "1",
+                "text": js.core.translate( "banner.priorityMul.select1" )
+            } )
+        );
+
+        select1.on( "change click", function () {
+            if ( this.checked ) {
+                set( "1" );
+            }
+        } );
+
+        select0.on( "change click", function () {
+            if ( this.checked ) {
+                set( "0" );
+            }
+        } );
+
+        selectx.on( "change click", function () {
+            if ( this.checked ) {
+                set( "0.5" );
+            }
+        } );
+
+        element.on( "change", change )
+               .on( "mousedown", function () { dragging = true; } )
+               .on( "mouseup", function () { dragging = false; change(); } );
+
+        if ( uiSlider ) {
+            uiSlider.on( "slidestart", function () { dragging = true; } )
+                    .on( "slidestop", function () { dragging = false; change(); } );
+        }
+
+        change();
     };
 
     global.Zork.Banner.prototype.priorityMul.isElementConstructor = true;
