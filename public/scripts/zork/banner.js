@@ -132,6 +132,7 @@
 
                                         banner = $( banner );
                                         banners.append( banner );
+                                        js.core.parseDocument( banner );
                                         banner.each( addBanner );
                                         scrollTo( banner );
                                     } )
