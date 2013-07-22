@@ -35,6 +35,7 @@ return array(
     'banner.priorityMul.select1' => 'Priority first',
     'banner.priorityMul.selectx' => 'Advanced',
     'banner.resourceGroup' => 'Banners',
+    'banner.resource' => 'Banner sets',
     'banner.privilege.create' => 'Create banner sets',
     'banner.privilege.delete' => 'Delete banner sets',
     'banner.privilege.edit' => 'Edit banner sets',
