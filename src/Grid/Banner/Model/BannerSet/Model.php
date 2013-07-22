@@ -2,6 +2,8 @@
 
 namespace Grid\Banner\Model\BannerSet;
 
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Expression;
 use Zork\Model\MapperAwareTrait;
 use Zork\Model\MapperAwareInterface;
 
@@ -32,8 +34,59 @@ class Model implements MapperAwareInterface
      */
     public function getPaginator()
     {
+        $xTag       = new Select( 'banner_x_set_by_tag' );
+        $xLocale    = new Select( 'banner_x_set_by_locale' );
+
+        $xTag->join( 'banner_set_x_tag',
+                     'banner_set_x_tag.id = banner_x_set_by_tag.setXTagId',
+                     array( 'setId' ),
+                     Select::JOIN_INNER )
+             ->join( 'tag',
+                     'tag.id = banner_set_x_tag.tagId',
+                     array(),
+                     Select::JOIN_INNER )
+             ->group( 'banner_set_x_tag.setId' )
+             ->columns( array(
+                 'tags' => new Expression(
+                     'STRING_AGG( DISTINCT ?.?, ? )',
+                     array( 'tag', 'name', "\n" ),
+                     array( Expression::TYPE_IDENTIFIER,
+                            Expression::TYPE_IDENTIFIER,
+                            Expression::TYPE_VALUE )
+                 ),
+             ) );
+
+        $xLocale->group( 'banner_x_set_by_locale.setId' )
+                ->columns( array(
+                    'setId',
+                    'locales' => new Expression(
+                        'STRING_AGG( DISTINCT ?, ? )',
+                        array( 'locale', "\n" ),
+                        array( Expression::TYPE_IDENTIFIER,
+                               Expression::TYPE_VALUE )
+                    ),
+                ) );
+
         return $this->getMapper()
-                    ->getPaginator();
+                    ->getPaginator(
+                        null,
+                        null,
+                        null,
+                        array(
+                            'x_tag' => array(
+                                'table'     => array( 'x_tag' => $xTag ),
+                                'where'     => 'x_tag.setId = banner_set.id',
+                                'columns'   => array( 'tags' ),
+                                'type'      => Select::JOIN_LEFT,
+                            ),
+                            'x_locale' => array(
+                                'table'     => array( 'x_locale' => $xLocale ),
+                                'where'     => 'x_locale.setId = banner_set.id',
+                                'columns'   => array( 'locales' ),
+                                'type'      => Select::JOIN_LEFT,
+                            ),
+                        )
+                    );
     }
 
     /**

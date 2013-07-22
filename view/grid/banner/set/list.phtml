@@ -16,7 +16,7 @@ if ( ! $this->format ): ?>
          ->setPage( $this->page )
          ->setColumns( array(
               'name'        => $rowSet::STRING,
-              'tags'        => $rowSet::SET,
+              'tags'        => $rowSet->column( $rowSet::SET, array(), '', '', '', null, false ),
               'locales'     => $rowSet->column( $rowSet::SET, array(), 'locale.sub', '', 'locale' ),
               'actions'     => function ( $row ) use ( $view ) {
                 $view->placeholder( 'listActions' )->set( '' );
