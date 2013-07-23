@@ -5,6 +5,7 @@ namespace Grid\Banner\Model\Paragraph\Structure;
 use Grid\Banner\Model\BannerSet;
 use Grid\Tag\Model\TagsAwareInterface;
 use Grid\Paragraph\Model\Paragraph\Structure\AbstractLeaf;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
 
 /**
  * Banner paragraph structure
