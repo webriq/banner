@@ -102,6 +102,10 @@ CREATE TABLE "banner_set_x_tag"
       ON DELETE CASCADE
 );
 
+CREATE INDEX ON "banner_set_x_tag" ( "setId"    ASC  );
+CREATE INDEX ON "banner_set_x_tag" ( "tagId"    ASC  );
+CREATE INDEX ON "banner_set_x_tag" ( "priority" DESC );
+
 --------------------------------------------------------------------------------
 -- table: banner_x_set_by_tag                                                 --
 --------------------------------------------------------------------------------
