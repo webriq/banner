@@ -81,9 +81,11 @@ return array(
                     'spec'  => array(
                         'options'   => array(
                             'options'   => array(
-                                'code'  => array(
-                                    'options' => array(
-                                        'banner' => 'paragraph.type.banner',
+                                'functions'     => array(
+                                    'label'     => 'paragraph.type-group.functions',
+                                    'order'     => 4,
+                                    'options'   => array(
+                                        'gmap'  => 'paragraph.type.banner',
                                     ),
                                 ),
                             ),
