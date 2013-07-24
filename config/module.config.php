@@ -85,7 +85,7 @@ return array(
                                     'label'     => 'paragraph.type-group.functions',
                                     'order'     => 4,
                                     'options'   => array(
-                                        'gmap'  => 'paragraph.type.banner',
+                                        'banner'  => 'paragraph.type.banner',
                                     ),
                                 ),
                             ),
