@@ -110,7 +110,7 @@ return array(
                                     'name'  => 'setId',
                                     'options'   => array(
                                         'label'     => 'banner.form.paragraph.setId',
-                                        'required'  => true,
+                                        'required'  => false,
                                         'model'     => 'Grid\Banner\Model\BannerSet\Model',
                                         'method'    => 'findOptions',
                                     ),
