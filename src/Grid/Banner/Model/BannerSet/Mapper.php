@@ -475,7 +475,9 @@ class Mapper extends ReadWriteMapperAbstract
         $delete = $sql->delete()
                       ->where( array(
                           'setId'   => $setId,
-                          new Sql\Predicate\NotIn( 'bannerId', $ids ),
+                          empty( $ids )
+                              ? new Sql\Predicate\Expression( 'TRUE' )
+                              : new Sql\Predicate\NotIn( 'bannerId', $ids ),
                       ) );
 
         $result += $sql->prepareStatementForSqlObject( $delete )
@@ -538,7 +540,9 @@ class Mapper extends ReadWriteMapperAbstract
         $delete = $sql->delete()
                       ->where( array(
                           'setId'   => $setId,
-                          new Sql\Predicate\NotIn( 'bannerId', $ids ),
+                          empty( $ids )
+                              ? new Sql\Predicate\Expression( 'TRUE' )
+                              : new Sql\Predicate\NotIn( 'bannerId', $ids ),
                       ) );
 
         $result += $sql->prepareStatementForSqlObject( $delete )
