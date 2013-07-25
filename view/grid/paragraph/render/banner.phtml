@@ -6,5 +6,17 @@
         ) ) ?>
     </div>
 <?php else: ?>
-    <div class="banner banner-not-found">&nbsp;</div>
-<?php endif; ?>
+
+    <div class="banner banner-image banner-not-found">
+        <a name="banner-image-<?= $this->paragraph->id ?>"
+<?php if ( $this->isAllowed( 'banner', 'view' ) ): ?>
+
+           href="/app/<?= $this->locale() ?>/admin/banner/set/list"
+<?php endif ?>
+
+           class="banner-image-link">
+            <img alt="<?= $this->escapeHtmlAttr( $this->translate( 'banner.paragraph.notFound', 'banner' ) ) ?>"
+                 src="/images/modules/Banner/not-found.png" />
+        </a>
+    </div>
+<?php endif ?>
