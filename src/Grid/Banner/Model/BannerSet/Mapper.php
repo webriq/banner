@@ -386,23 +386,29 @@ class Mapper extends ReadWriteMapperAbstract
             }
         }
 
-        $delete = $sqlx->delete()
-                       ->where( array(
-                           'setId'   => $setId,
-                           new Sql\Predicate\NotIn( 'id', $xids ),
-                       ) );
-
-        $result += $sqlx->prepareStatementForSqlObject( $delete )
+        $result += $sqlx->prepareStatementForSqlObject(
+                            $sqlx->delete()
+                                 ->where( array(
+                                     'setId'   => $setId,
+                                     empty( $xids )
+                                        ? new Sql\Predicate\Expression( 'TRUE' )
+                                        : new Sql\Predicate\NotIn( 'id', $xids ),
+                                 ) )
+                        )
                         ->execute()
                         ->getAffectedRows();
 
-        $delete = $sql->delete()
-                      ->where( array(
-                          new Sql\Predicate\In( 'setXTagId', $xids ),
-                          new Sql\Predicate\NotIn( 'bannerId', $ids ),
-                      ) );
-
-        $result += $sql->prepareStatementForSqlObject( $delete )
+        $result += $sql->prepareStatementForSqlObject(
+                           $sql->delete()
+                               ->where( array(
+                                   empty( $xids )
+                                       ? new Sql\Predicate\Expression( 'FALSE' )
+                                       : new Sql\Predicate\In( 'setXTagId', $xids ),
+                                   empty( $ids )
+                                       ? new Sql\Predicate\Expression( 'TRUE' )
+                                       : new Sql\Predicate\NotIn( 'bannerId', $ids ),
+                               ) )
+                       )
                        ->execute()
                        ->getAffectedRows();
 
