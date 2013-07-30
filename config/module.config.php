@@ -104,15 +104,26 @@ return array(
                             'required'  => false,
                         ),
                         'elements'  => array(
+                            'name'  => array(
+                                'spec'  => array(
+                                    'type'      => 'Zork\Form\Element\Text',
+                                    'name'      => 'name',
+                                    'options'   => array(
+                                        'label'     => 'paragraph.form.abstract.name',
+                                        'required'  => false,
+                                    ),
+                                ),
+                            ),
                             'setId' => array(
                                 'spec' => array(
                                     'type'  => 'Zork\Form\Element\SelectModel',
                                     'name'  => 'setId',
                                     'options'   => array(
-                                        'label'     => 'banner.form.paragraph.setId',
-                                        'required'  => false,
-                                        'model'     => 'Grid\Banner\Model\BannerSet\Model',
-                                        'method'    => 'findOptions',
+                                        'label'         => 'banner.form.paragraph.setId',
+                                        'description'   => 'banner.form.paragraph.setId.description',
+                                        'required'      => false,
+                                        'model'         => 'Grid\Banner\Model\BannerSet\Model',
+                                        'method'        => 'findOptions',
                                     ),
                                 ),
                             ),
@@ -121,8 +132,9 @@ return array(
                                     'type'  => 'Zork\Form\Element\Range',
                                     'name'  => 'priorityMul',
                                     'options'   => array(
-                                        'label'     => 'banner.form.paragraph.priorityMul',
-                                        'required'  => true,
+                                        'label'         => 'banner.form.paragraph.priorityMul',
+                                        'description'   => 'banner.form.paragraph.priorityMul.description',
+                                        'required'      => true,
                                     ),
                                     'attributes'    => array(
                                         'data-js-type'  => 'js.banner.priorityMul',
