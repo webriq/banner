@@ -19,7 +19,7 @@
     ],
     "support": {
         "email": "dev@megaweb.hu",
-        "source": "https://github.com/webriq/gridguyz-banner"
+        "source": "https://github.com/gridguyz/banner"
     },
     "require": {
         "php": ">=5.4",
