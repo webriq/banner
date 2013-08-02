@@ -477,7 +477,7 @@ return array(
     ),
     'translator' => array(
         'translation_file_patterns' => array(
-            'embed' => array(
+            'banner' => array(
                 'type'          => 'phpArray',
                 'base_dir'      => __DIR__ . '/../languages/banner',
                 'pattern'       => '%s.php',
