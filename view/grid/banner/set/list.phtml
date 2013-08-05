@@ -18,6 +18,7 @@ if ( ! $this->format ): ?>
               'name'        => $rowSet::STRING,
               'tags'        => $rowSet->column( $rowSet::SET, array(), '', '', '', null, false ),
               'locales'     => $rowSet->column( $rowSet::SET, array(), 'locale.sub', '', 'locale' ),
+              'globals'     => $rowSet::BOOLEAN,
               'actions'     => function ( $row ) use ( $view ) {
                 $view->placeholder( 'listActions' )->set( '' );
                 $view->placeholder( 'listActions' )->captureStart();

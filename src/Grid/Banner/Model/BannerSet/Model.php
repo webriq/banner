@@ -36,6 +36,7 @@ class Model implements MapperAwareInterface
     {
         $xTag       = new Select( 'banner_x_set_by_tag' );
         $xLocale    = new Select( 'banner_x_set_by_locale' );
+        $xGlobal    = new Select( 'banner_x_set_by_global' );
 
         $xTag->join( 'banner_set_x_tag',
                      'banner_set_x_tag.id = banner_x_set_by_tag.setXTagId',
@@ -67,6 +68,12 @@ class Model implements MapperAwareInterface
                     ),
                 ) );
 
+        $xLocale->group( 'banner_x_set_by_global.setId' )
+                ->columns( array(
+                    'setId',
+                    'globals' => new Expression( 'COUNT(*) > 0' ),
+                ) );
+
         return $this->getMapper()
                     ->getPaginator(
                         null,
@@ -83,6 +90,12 @@ class Model implements MapperAwareInterface
                                 'table'     => array( 'x_locale' => $xLocale ),
                                 'where'     => 'x_locale.setId = banner_set.id',
                                 'columns'   => array( 'locales' ),
+                                'type'      => Select::JOIN_LEFT,
+                            ),
+                            'x_global' => array(
+                                'table'     => array( 'x_global' => $xGlobal ),
+                                'where'     => 'x_global.setId = banner_set.id',
+                                'columns'   => array( 'globals' ),
                                 'type'      => Select::JOIN_LEFT,
                             ),
                         )
