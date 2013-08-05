@@ -34,7 +34,7 @@ return array(
     'banner.list.set.column.tags.title' => 'Tags',
     'banner.list.set.column.locales.title' => 'Languages',
     'banner.list.set.column.globals.title' => 'Globals',
-    'banner.paragraph.notFound' => 'Banner not found',
+    'banner.paragraph.notFound' => 'Advertise',
     'banner.priorityMul.select0' => 'No priority',
     'banner.priorityMul.select1' => 'Priority first',
     'banner.priorityMul.selectx' => 'Advanced',
