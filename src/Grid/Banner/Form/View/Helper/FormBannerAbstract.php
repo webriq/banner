@@ -151,7 +151,7 @@ abstract class FormBannerAbstract extends AbstractHelper
 
         $hiddenMarkup .= sprintf(
             '<input type="hidden" name="%s" value="" />',
-            $escapeHtmlAttr( $name )
+            $escapeHtmlAttr( preg_replace( '/\\[__[a-zA-Z0-9]+__\\]$/', '', $name ) )
         );
 
         $this->validTagAttributes = $this->validContainerAttributes;
