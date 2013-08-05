@@ -68,7 +68,7 @@ class Model implements MapperAwareInterface
                     ),
                 ) );
 
-        $xLocale->group( 'banner_x_set_by_global.setId' )
+        $xGlobal->group( 'banner_x_set_by_global.setId' )
                 ->columns( array(
                     'setId',
                     'globals' => new Expression( 'COUNT(*) > 0' ),
