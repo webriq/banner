@@ -149,10 +149,16 @@ abstract class FormBannerAbstract extends AbstractHelper
             );
         }
 
+        $hiddenMarkup .= sprintf(
+            '<input type="hidden" name="%s" value="" />',
+            $escapeHtmlAttr( $name )
+        );
+
         $this->validTagAttributes = $this->validContainerAttributes;
         return sprintf(
-            '<div %s>' . PHP_EOL . '%s' . PHP_EOL . '%s' .PHP_EOL . '</div>',
+            '<div %s>' . PHP_EOL . '%s' . PHP_EOL . '%s' . PHP_EOL . '%s' .PHP_EOL . '</div>',
             $this->createAttributesString( $attributes ),
+            $hiddenMarkup,
             $groupsMarkup,
             $templatesMarkup
         );

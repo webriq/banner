@@ -91,6 +91,11 @@ class Structure extends MapperAwareAbstract
     {
         $set = array();
 
+        if ( empty( $banners ) )
+        {
+            $banners = array();
+        }
+
         foreach ( $banners as $tagId => $bannerList )
         {
             $set[$tagId] = array();
@@ -136,6 +141,11 @@ class Structure extends MapperAwareAbstract
     {
         $set = array();
 
+        if ( empty( $banners ) )
+        {
+            $banners = array();
+        }
+
         foreach ( $banners as $locale => $bannerList )
         {
             $set[$locale] = array();
@@ -180,6 +190,11 @@ class Structure extends MapperAwareAbstract
     public function setGlobalBanners( $banners )
     {
         $set = array();
+
+        if ( empty( $banners ) )
+        {
+            $banners = array();
+        }
 
         foreach ( $banners as $banner )
         {
