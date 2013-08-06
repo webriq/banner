@@ -156,9 +156,9 @@ abstract class FormBannerAbstract extends AbstractHelper
 
         $this->validTagAttributes = $this->validContainerAttributes;
         return sprintf(
-            '<div %s>' . PHP_EOL . '%s' . PHP_EOL . '%s' . PHP_EOL . '%s' .PHP_EOL . '</div>',
-            $this->createAttributesString( $attributes ),
+            '%s' . PHP_EOL . '<div %s>' . PHP_EOL . '%s' . PHP_EOL . '%s' .PHP_EOL . '</div>',
             $hiddenMarkup,
+            $this->createAttributesString( $attributes ),
             $groupsMarkup,
             $templatesMarkup
         );
