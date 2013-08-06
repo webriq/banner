@@ -310,7 +310,8 @@
                .sortable( sortableParams );
 
         var addItem,
-            addTag      = $( '<input type="search">' ),
+            addTag      = $( '<input type="search">' ).attr( "placeholder",
+                            js.core.translate( "default.autoCompletePlaceholder" ) ),
             addDiv      = $( "<div>" ).addClass( "banner-group-add" ),
             addGroup    = addButtons( element, {
                 "__tagid__": function ( group ) {
