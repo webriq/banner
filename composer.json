@@ -33,5 +33,10 @@
         "classmap": [
             "Module.php"
         ]
+    },
+    "extra": {
+        "modules": {
+            "Grid\\Banner": "Banner"
+        }
     }
 }
