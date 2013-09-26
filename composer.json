@@ -35,6 +35,9 @@
         ]
     },
     "extra": {
+        "display-icon": {
+            "63": "https://raw.github.com/gridguyz/banner/%reference%/icons/63x63.png"
+        },
         "display-name": {
             "en": "Ad/Banner Package"
         },
