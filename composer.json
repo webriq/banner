@@ -39,7 +39,7 @@
             "63": "https://raw.github.com/gridguyz/banner/%reference%/icons/63x63.png"
         },
         "display-name": {
-            "en": "Ad/Banner Package"
+            "en": "Ad/Banner"
         },
         "display-description": {
             "en": "This APP allows you to place advertisement on your website(s). The display of the ads can be conditioned upon content and/or languages. The ads can be simple texts, images or even codes can be embedded from a third party ad server (eg.: Google Adwords)."
