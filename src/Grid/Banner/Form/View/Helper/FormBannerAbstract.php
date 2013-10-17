@@ -149,7 +149,7 @@ abstract class FormBannerAbstract extends AbstractHelper
             );
         }
 
-        $hiddenMarkup .= sprintf(
+        $hiddenMarkup = sprintf(
             '<input type="hidden" name="%s" value="" />',
             $escapeHtmlAttr( preg_replace( '/\\[__[a-zA-Z0-9]+__\\]$/', '', $name ) )
         );
