@@ -120,6 +120,8 @@ class Mapper extends ReadWriteMapperAbstract implements ServiceLocatorAwareInter
                                  StructureFactory           $bannerStructureFactory,
                                  Structure\ProxyBase        $bannerStructurePrototype = null )
     {
+        $this->setServiceLocator( $serviceLocator );
+
         if ( null === static::$previousBlockedIds )
         {
             $this->releaseBlockedIds();
@@ -127,8 +129,7 @@ class Mapper extends ReadWriteMapperAbstract implements ServiceLocatorAwareInter
 
         parent::__construct( $bannerStructurePrototype ?: new Structure\ProxyBase );
 
-        $this->setServiceLocator( $serviceLocator )
-             ->setStructureFactory( $bannerStructureFactory );
+        $this->setStructureFactory( $bannerStructureFactory );
     }
 
     /**
