@@ -7,6 +7,7 @@ use Zend\Db\Sql;
 use Zork\Db\Sql\Expression;
 use Zend\Stdlib\ArrayUtils;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zork\Model\Mapper\DbAware\ReadWriteMapperAbstract;
 use Zork\Session\ContainerAwareTrait as SessionContainerAwareTrait;
 
@@ -15,7 +16,7 @@ use Zork\Session\ContainerAwareTrait as SessionContainerAwareTrait;
  *
  * @author David Pozsar <david.pozsar@megaweb.hu>
  */
-class Mapper extends ReadWriteMapperAbstract
+class Mapper extends ReadWriteMapperAbstract implements ServiceLocatorAwareInterface
 {
 
     use SessionContainerAwareTrait;
